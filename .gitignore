@@ -1,0 +1,11 @@
+# runtime/test dirs (never commit tokens/db/logs)
+_launcher_gateway_home/
+_dsh_test_home/
+_dsh_plugin_home/
+_tmp_*
+_backups/
+*.token
+*.db
+*.db-wal
+*.db-shm
+
