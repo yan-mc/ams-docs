@@ -111,3 +111,10 @@ Secrets：`SIGN_CERT`/`SIGN_PASSWORD`、`ED25519_PRIVATE_KEY`、`GH_TOKEN`、可
 ## 10. 发布检查清单（Release Checklist）
 
 1) 版本号/CHANGELOG 已更新；2) CI 全绿；3) 安装包/包已签名；4) 更新清单与签名已生成并验证；5) 兼容矩阵已更新（kernel/plugin/service）；6) 安装/升级/回滚三路径实测；7) 隐私与许可文件齐全；8) Release Notes 已写；9) 旧版本资产保留；10) 通知渠道已发布。
+
+## 11. 安装布局与更新验证（索引）
+
+- **安装目录/数据目录/默认曼波/后端 runtime/更新粒度与回滚**：见 [安装布局.md](安装布局.md)。
+- **可执行验收清单（安装→首启→组件检测→默认曼波→签名更新→回滚→卸载，含 M1 现状与待办）**：见 `07_执行计划/安装与更新验证.md`。
+- **7 组件更新清单示例（launcher/kernel/plugin/service/tool/catalog，含 size/sha256/requires/sequence/withdraw）与签名命令**：见 `08_项目代码/ams-release/examples/manifest.json`、`manifest.signed.json`、`examples/README.md`。
+- 正式发布时：CI 生成清单 → 生产密钥签名 → `verify --min-sequence` → 发布 `manifests/<channel>/manifest.json`；安装包/包签名与公钥内置启动器（见 01 启动器方案 §6）。
