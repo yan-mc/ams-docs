@@ -40,3 +40,21 @@
 2. 启动器 `start_kernel` 清空继承的 `DSH_*`/`NODE_*`/`ELECTRON_*`，使用安装目录内绝对路径，设置独立 `AMS_HOME`/`DSH_HOME`/`profile=music`；
 3. 在 VM 内同时运行现有 DSH 与 AMS，验证：不共用 `.dsh`、不共用端口、不互相单实例、不互相杀进程；
 4. 验证通过前不发布；GPU 功能（RVC/pymss/实时变声）留宿主机测试。
+## 5. 2026-10-21 内核发布与共存测试
+
+- 已构建并上传 AMS 内核到公开仓库 `yan-mc/ams-release` 的 `v0.2.1` Release；`ams-release` 已改为 **public**，源码仓库仍私有。
+- 公开 feed：`https://github.com/yan-mc/ams-release/releases/latest/download/ams-components.json`，已签名，sequence 2002。
+- VM 内 Launcher 0.2.0 已通过自身组件安装流程从 GitHub 下载内核（388,552,450 B）并解包（1,091,339,809 B），组件全部 ok。
+- 修复启动器 `sha256_of` 的 1MB 栈缓冲区导致的 `0xc00000fd` 崩溃；CLI 安装/启动测试通过。
+- AMS 内核单独启动成功：`dsh web: http://127.0.0.1:57107/?token=...`。
+- **共存测试发现冲突**：与现有 DSH 同时运行时，AMS 内核进程退出，Electron 日志出现 `Unable to move the cache: 拒绝访问`，说明内核仍使用上游默认 Electron userData/身份，`--user-data-dir` 未被应用完全接管；这是发布前必须修复的隔离问题。
+- 已把内核 branding 从 `DeepSeek Harness` 改为 `AMS Studio.exe`，并给桌面主进程打补丁：当 `AMS_HOME` 存在时 `app.setName("AMS Studio")` + `app.setPath("userData", AMS_HOME/kernel/electron-data)`；该补丁尚未重新打包/回归测试。
+- 公开 Release 已有最新启动器安装包（文件名 `AMS-Studio-0.2.0-kernel-AMS Studio_0.2.0_x64-setup.exe` 形式）；下一轮重建内核后必须再跑双 DSH 共存测试。
+
+### 结论
+
+当前还不能发布。必须完成：内核 userData/appName 隔离补丁重打包 → VM 内和现有 DSH 同时启动 → 验证 `.dsh`、端口、单实例、关停互不影响。
+
+## 6. 卸载安全（2026-10-21）
+
+已实现归属标记 + 白名单子目录清理 + NSIS 卸载钩子，并在 VM 内完成伪造 `.dsh`、用户音源、无关文件保留测试；详见 `F:\AMS-VM\卸载与数据清理设计.md`。
