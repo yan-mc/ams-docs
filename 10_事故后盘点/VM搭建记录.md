@@ -58,3 +58,16 @@
 ## 6. 卸载安全（2026-10-21）
 
 已实现归属标记 + 白名单子目录清理 + NSIS 卸载钩子，并在 VM 内完成伪造 `.dsh`、用户音源、无关文件保留测试；详见 `F:\AMS-VM\卸载与数据清理设计.md`。
+## 7. 内核隔离与共存验证通过（2026-10-21）
+
+- 内核桌面壳新增：检测到 `AMS_HOME` 时执行 `app.setName("AMS Studio")`，并 `app.setPath("userData", AMS_HOME/kernel/electron-data)`；在 ready 之前完成。
+- 内核 executable 改名 `AMS Studio.exe`，协议改为 `ams:`；打包进入公开 Release。
+- 公开 feed sequence 2003，内核为 `ams-kernel-isolated-0.2.1-rc.2.zip`（388,552,476 B）。
+- VM 内 Launcher 从公开 GitHub feed 下载并安装内核成功（4 组件全部 ok）。
+- 同时运行现有 DSH（C:\DSH-Existing）与 AMS 内核：
+  - 现有 DSH 6 个进程、AMS 6 个进程同时存活；
+  - 两者监听端口不同（示例 49633 / 52739）；
+  - AMS `electron-data` 独立生成约 71–72 个文件；`.dsh` 保持 10 个文件，未被 AMS 写入。
+  - 只停 AMS：现有 DSH 6 个进程全部存活；
+  - 只停现有 DSH：AMS 6 个进程全部存活，`dsh web` 正常输出。
+- 结论：**已经达到“不撞车”的门槛**；后续仍需做 UI 启动、完整模块安装、TTS/RVC 等业务回归。
