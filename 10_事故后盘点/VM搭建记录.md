@@ -78,3 +78,17 @@
 - **现有 DSH 缺失**：实际在 `C:\DSH-Existing`，已创建桌面/开始菜单快捷方式“现有 DSH（共存测试）”，并启动验证；用户 `.dsh` 正常。
 - **VM 密码**：`amsdev` 密码改为 `123456`；所有 VM 脚本同步更新。
 - 启动器最新包已安装到 VM（包含隐藏窗口修复）。
+## 9. 最终收口（2026-10-21）
+
+- GitHub 已整理为 9 个当前资产：launcher setup/msi、AMS Kernel no-login zip、签名 feed sequence 2005、plugin/service/catalog/voicepack、SHA256SUMS。旧内核和旧安装包已删除。
+- 公开 Release 标题：`AMS Studio 0.2.0 + AMS Kernel 0.2.1-rc.2 (no-login)`。
+- 宿主机（非 VM）安装：
+  - 程序：`F:\AMS Studio`
+  - 数据：`F:\AMS-Studio-Data`（用户级 `AMS_HOME`）
+  - C 盘无 `AMS`/`AMS Studio` 数据目录；
+  - AMS Kernel 已从公开 feed 安装并启动，窗口标题为 **AMS Kernel**；
+  - 现有 DSH 与 AMS Kernel 同时运行；
+  - 默认音源曼波已复制到 `F:\AMS-Studio-Data\voices\曼波`（pth 55,222,703 B + index 141,362,899 B）；
+  - RVC Python、Gateway venv、NVIDIA RTX 4080 均可用，等待后续功能测试。
+- AMS Kernel 的登录/欢迎引导已移除：`AMS_HOME` 存在时直接进入工作区；壳文案、窗口标题、菜单/托盘统一为 AMS Kernel。
+- VM `AMS-Test` 已关闭，State=Off；`AutomaticStartAction=Nothing`，不会开机自启。
