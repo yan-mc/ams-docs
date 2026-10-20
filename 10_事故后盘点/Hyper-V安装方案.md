@@ -184,3 +184,23 @@ Restore-VMSnapshot -VMName "AMS-Test" -Name "baseline-dev" -Confirm:$false
 | VirtualBox（备选） | 约 100MB | 可选 |
 
 **执行前请确认：允许下载 Windows ISO、启用 Hyper-V（会重启）、VM 放 D 还是 E。** 未确认前不要动系统功能。
+## 14. F 盘落位（2026-10-20 实测）
+
+- F: 是 **NTFS / 固定盘 / NVMe / 1TB**，剩余 **363.8GB**，适合放 Hyper-V 的 VM 配置、VHDX、快照、ISO；
+- 已创建 `F:/AMS-VM/`：`Hyper-V/`（配置）、`VHDX/`（虚拟盘）、`Snapshots/`（检查点）、`Exports/`（导出）、`ISO/`、`Scripts/`；
+- `Scripts/01-enable-hyperv.ps1`：启用 Hyper-V（需管理员 + 重启）；
+- `Scripts/02-create-ams-vm.ps1`：自动在 F 盘创建 8 vCPU / 16GB / 120GB 动态盘的 `AMS-Test`，ISO 自动从 `F:/AMS-VM/ISO/` 查找；
+- 说明：Hyper-V 的 **Windows 系统功能本体**仍在 C 盘（系统组件无法搬到 F），但所有 VM 数据/磁盘/快照/ISO 都在 F。
+
+## 15. 开发工具 vs 最终软件依赖
+
+| 工具 | 最终用户是否需要 | 说明 |
+|---|---|---|
+| Node.js / pnpm | **不需要**（用户侧） | 开发期构建前端/插件；最终内核是预编译 Electron/DSH 包，内部自带 Node 运行时；用户不装 Node |
+| Rust / rustc / cargo | **不需要** | 只用于编译 Tauri 启动器；最终发 exe/msi，用户不装 Rust |
+| VS BuildTools / MSVC | **不需要** | 只用于编译 Rust/C++；最终用户不装 VS |
+| Python / torch | **运行依赖，随组件提供** | Gateway/RVC/pymss 属于后端；由 portable runtime/组件安装器提供，不需要用户系统 Python |
+| WebView2 | 需要（Win11 通常内置） | Tauri 启动器渲染依赖；缺失时安装器提示/安装 |
+| NVIDIA 驱动 | 需要（GPU 功能） | RVC/pymss GPU 才有；CPU 路径不需要 |
+
+结论：**Node/Rust/VS BuildTools 都是开发机工具**。宿主机正常装 D 盘/C 盘都可以，不必搬进 F；当前已有的 VS BuildTools/Rust 留在 C 不影响最终软件。若在 VM Guest 内构建，Guest 的工具装在 Guest 的 VHDX 里（物理上也在 F）。
