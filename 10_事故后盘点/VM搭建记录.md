@@ -71,3 +71,10 @@
   - 只停 AMS：现有 DSH 6 个进程全部存活；
   - 只停现有 DSH：AMS 6 个进程全部存活，`dsh web` 正常输出。
 - 结论：**已经达到“不撞车”的门槛**；后续仍需做 UI 启动、完整模块安装、TTS/RVC 等业务回归。
+## 8. 2026-10-21 用户复核后的修复
+
+- **命令行闪窗**：原因是启动器每 5 秒轮询 `kernel_status` 时调用 `tasklist.exe`，GUI 进程启动控制台程序会短暂弹窗。现所有 launcher 子进程（tasklist/taskkill/powershell/run_cmd）统一使用 `CREATE_NO_WINDOW`；同时补齐 `AMS Kernel.exe` 候选。
+- **内核改名**：内核产品名/进程名改为 **AMS Kernel**，exe 为 `AMS Kernel.exe`，app.name 同为 AMS Kernel；公开 feed sequence 2004。
+- **现有 DSH 缺失**：实际在 `C:\DSH-Existing`，已创建桌面/开始菜单快捷方式“现有 DSH（共存测试）”，并启动验证；用户 `.dsh` 正常。
+- **VM 密码**：`amsdev` 密码改为 `123456`；所有 VM 脚本同步更新。
+- 启动器最新包已安装到 VM（包含隐藏窗口修复）。
