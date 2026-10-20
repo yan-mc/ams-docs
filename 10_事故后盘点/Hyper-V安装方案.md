@@ -204,3 +204,9 @@ Restore-VMSnapshot -VMName "AMS-Test" -Name "baseline-dev" -Confirm:$false
 | NVIDIA 驱动 | 需要（GPU 功能） | RVC/pymss GPU 才有；CPU 路径不需要 |
 
 结论：**Node/Rust/VS BuildTools 都是开发机工具**。宿主机正常装 D 盘/C 盘都可以，不必搬进 F；当前已有的 VS BuildTools/Rust 留在 C 不影响最终软件。若在 VM Guest 内构建，Guest 的工具装在 Guest 的 VHDX 里（物理上也在 F）。
+## 16. 执行状态（2026-10-20 22:15）
+
+- Hyper-V 功能已通过管理员脚本启用，状态 **pending reboot**；尚未重启；
+- Windows 11 ISO 已放到 `F:/AMS-VM/ISO/Windows11_Client_x64_zh-cn_26300_9457.iso`（8.49GB）；
+- `F:/AMS-VM` 目录与两个脚本已就绪；尚未创建/启动 VM；
+- 下一步：重启 Windows → 运行 `02-create-ams-vm.ps1`。
