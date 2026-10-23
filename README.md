@@ -1,5 +1,10 @@
 # ams-docs
 
+> **AMS Studio 子项目 · 设计与工程文档**  
+> AMS Studio 的方案设计、执行计划、测试记录、发布说明与事故复盘都在这里，是总仓库的文档镜像。  
+> 总仓库：https://github.com/yan-mc/AMS-Studio
+
+
 AMS（AI Music Studio）设计文档镜像。
 
 - `06_方案设计/`：总体设计与 16 份分册（启动器/主体/插件/V家/Git）
