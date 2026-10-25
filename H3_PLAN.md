@@ -1,6 +1,6 @@
 # H3 发布候选（RC）计划与预检（2026-10-25）
 
-状态：**H3 预检完成，尚未进入 RC 执行。H2 中文闲云全量训练挂起。**
+状态：**H3 非 H2 依赖工作已完成：版本统一、RC 构建、feed 2045、QA、干净目录生命周期。RC 以 draft prerelease 保存；等 H2 训练/中文 RVC 完成后发布。**
 
 ## 1. H3 目标
 
@@ -256,21 +256,27 @@ Day 7：RC tag、发布候选清单、H3 签收。
 - 干净目录/便携 RC 方案确认；
 - 旧版回滚包确认。
 
-## 8. H3 当前结论
+## 8. H3 执行进展（2026-10-25）
 
-H3 预检完成，但**不能直接进入 RC**。
+已完成：
 
-最先处理的三个 P0：
+1. 版本统一：launcher/plugin/gateway/installer 均为 1.0.0-rc.1；
+2. RC 构建：launcher、plugin、gateway、setup；
+3. feed 2045：已签名，setup 1.0.0-rc.1，manifest/checksums 一致；
+4. GitHub draft prerelease v1.0.0-rc.1：资产已上传，未发布；
+5. QA：Gateway 41 项、release 1 项、v44/v45 签名、版本矩阵、feed/setup、RC manifest/hash 通过；
+6. 干净目录 RC：安装/启动/卸载保留 data/升级/回滚通过；
+7. 当前 feed 2044 的 RELEASE_MANIFEST/SHA256SUMS 已修正上传；
+8. VM 已拆除，H3 改用干净目录/便携 RC。
 
-1. RELEASE_MANIFEST/SHA256SUMS 与 feed 2044/setup 0.2.1 不一致；
-2. 版本矩阵未统一；
-3. QA 环境/release 测试不自包含（cryptography 缺失）。
+仍需等 H2 完成：
 
-随后处理：
+- H2 闲云 50 epoch 最终训练/RVC；
+- H2 未完成项关闭或豁免；
+- RC 在 H2 完成后的完整回归；
+- RC draft 发布；
+- GitHub 旧资产保留/归档；
+- INSTALLATION/RC 发布说明最终更新；
+- P0/P1 清零与 H3 签收。
 
-- 干净目录/便携 RC；
-- 自动化入口；
-- 文档/回滚/离线；
-- 缺陷清零。
-
-H2 中文训练完成后，再恢复 H2 最后一项；H3 可并行做版本/自动化/发布清单，但 RC 签收必须等 H2 关闭。
+结论：H3 非 H2 依赖工作已完成；**RC 尚未发布，不能签收**。H2 训练完成后做最终回归再发布。
