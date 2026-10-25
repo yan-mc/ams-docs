@@ -42,3 +42,4 @@
 - H2-D005 P1：pymss runtime.json 指向嵌入式 python，已手工修为 .venv；安装/升级需修复生成逻辑。
 - H2-D006 P2：Host loopback same-origin fallback 无 token 仍 200；跨站 401；需安全评审。
 
+- H2-D002：50 epoch 已通过；剩余为中文歌声数据集/听感。

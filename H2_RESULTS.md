@@ -21,7 +21,7 @@
 | TTS | 中英双模型、批量、缺模型、20001 字 | 通过（错误码正确） |
 | RVC | 3/5/12 分钟、无 index、训练音色 | 通过 |
 | pymss | 3/10 分钟、四 stems | 通过 |
-| 训练 | 10 epoch 通过；50 epoch 后台进行中 | 10 epoch 通过，50 epoch 待收尾 |
+| 训练 | 10/50 epoch、pth/index、注册、RVC | 通过 |
 | 数据集 | dataset.prepare | 通过 |
 | 项目 | project_id 异步 steps、导出/导入/trash | 通过 |
 | 评测 | 同输入两次指标一致 | 通过 |
@@ -53,7 +53,6 @@
 - 3 分钟：job_1134236bfba74065，4 stems 均 180.000s，44100Hz
 - 10 分钟：job_495512fb07ba42d5，4 stems 均 600.021s
 - 修复：runtime.json 的 pymss_python 从嵌入式 python 改为 .venv/Scripts/python.exe
-- 50 epoch：job_6f8aa6d4c0ef4e4b，后台运行中
 
 ### 训练
 
@@ -61,6 +60,10 @@
 - pth：h2_train_test.pth，57,578,929 bytes
 - index：h2_train_test.index，133,466,157 bytes
 - 已注册 voice；新音色 RVC 成功
+- job_6f8aa6d4c0ef4e4b，50 epoch，成功
+  - pth：h2_train_50.pth，57,578,011 bytes
+  - index：h2_train_50.index，133,466,157 bytes
+  - 新音色 RVC：job_a317bd5915a04b63，成功，48000Hz，3.9849s，index_used=true
 
 ### 项目
 
@@ -93,7 +96,7 @@
 ## 4. 阻断/边界
 
 1. **MSVC 无真实 .msvc 样本**，只验证了负向 INPUT_PATH_MISSING；不能签收转换成功。
-2. **50 epoch 训练仍在运行**；10 epoch 已通过；中文歌声数据集缺失，无法完成听感验收。
+2. **中文歌声数据集缺失**，无法完成中文歌声听感验收；50 epoch 功能链路已通过。
 3. **UI 只做页签静态检查**，没有浏览器级交互/视觉自动化。
 4. mock.long 在打包 Gateway 中用 sys.executable 启动 Python，子进程 exit 2；源码已修复，但当前已安装 Gateway 未重建。
 5. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
@@ -102,10 +105,10 @@
 
 核心音频链路（TTS、RVC、pymss、训练、评测、混音、项目）已通过。
 
-H2 暂不能签收，需完成：
+H2 暂不能无条件签收，需完成：
 
 - MSVC 真实样本；
-- 训练质量/中文数据集；
+- 中文歌声数据集/听感；
 - UI 浏览器级验收；
 - 重建并部署修复后的 Gateway。
 
