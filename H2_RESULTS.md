@@ -1,6 +1,6 @@
 # H2 核心功能回归结果（2026-10-25）
 
-状态：**核心音频链路通过；H2 仍有环境/质量边界，不能无条件签收。**
+状态：**核心音频链路通过；MSVC、50 epoch、真实浏览器 12 页签均通过。中文语音包下载完成后做最后中文测试。**
 
 ## 1. 环境
 
@@ -27,8 +27,8 @@
 | 评测 | 同输入两次指标一致 | 通过 |
 | 混音 | 2/4 轨、响度/true peak | 通过 |
 | 实时 VC | 设备枚举、passthrough 30 分钟长稳 | 通过（180/180 采样，overflows=0） |
-| MSVC | 无样本，负向错误码 | 阻断：无 .msvc 样本 |
-| UI | 页签静态检查 | 通过（无浏览器交互自动化） |
+| MSVC | 苏苏.msvc 正向转换 + pth RVC 推理 | 通过 |
+| UI | Edge CDP 真实页面逐一点击 12 页签 | 通过 |
 
 ## 3. 关键证据
 
@@ -39,6 +39,19 @@
 - 批量：job_b0ddafed3e7f4f02 / job_c2a4f248700f4617
 - 缺模型：BACKEND_PATH_NOT_FOUND
 - 20001 字：INVALID_PARAMS
+
+### MSVC
+
+- 输入：F:\ai配音\心月-变声器\心月变声\_internal\modules\曼波Pro\苏苏.msvc
+- job_d93e96a0631a4c7e，成功
+- 输出：曼波Pro.pth + conversion.json
+- 转换后 pth RVC：job_c8d664bdd5374942，成功，48000Hz
+
+### UI
+
+- Edge 真实页面：标题 AMS Kernel，session 鉴权，SSE 已结束
+- 12 个页签逐一点击：项目、实时变声、音色库、TTS 批量、音源炼制、数据集工作室、评测器、混音母带、人声分离、歌曲换源、MSVC 工具、TTS 语音合成
+- 每个页签点击后页面均正常渲染并包含对应内容
 
 ### RVC
 
@@ -95,22 +108,17 @@
 
 ## 4. 阻断/边界
 
-1. **MSVC 无真实 .msvc 样本**，只验证了负向 INPUT_PATH_MISSING；不能签收转换成功。
-2. **中文歌声数据集缺失**，无法完成中文歌声听感验收；50 epoch 功能链路已通过。
-3. **UI 只做页签静态检查**，没有浏览器级交互/视觉自动化。
-4. mock.long 在打包 Gateway 中用 sys.executable 启动 Python，子进程 exit 2；源码已修复，但当前已安装 Gateway 未重建。
-5. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
+1. **中文语音包尚未落盘**：原神 6.3 语音包正在下载，Downloads 目前无文件；已生成闲云 26 条清单。
+2. **中文歌声听感**仍缺专门的数据集；闲云语音可用于中文语音转换测试。
+3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
 ## 5. 结论
 
 核心音频链路（TTS、RVC、pymss、训练、评测、混音、项目）已通过。
 
-H2 暂不能无条件签收，需完成：
+H2 核心功能已通过，最后等待中文语音包落盘后做闲云中文 RVC/VC 测试。
 
-- MSVC 真实样本；
-- 中文歌声数据集/听感；
-- UI 浏览器级验收；
-- 重建并部署修复后的 Gateway。
+已部署修复后的 Gateway：`service.gateway` 本地组件已替换，mock.long 5s 正常。
 
 ## 6. 日志
 
@@ -121,4 +129,7 @@ H2 暂不能无条件签收，需完成：
 - F:\AMS-Studio\data\logs\h2_pymss10.json
 - F:\AMS-Studio\data\logs\h2_batch_quality.json
 - F:\AMS-Studio\data\logs\h2_gpu_serial.json
-- F:\AMS-Studio\data\logs\vc_30min.json（完成后生成）
+- F:\AMS-Studio\data\logs\vc_30min.json
+- F:\AMS-Studio\data\logs\h2_msvc.json
+- F:\AMS-Studio\data\logs\h2_msvc_rvc.json
+- F:\AMS-Studio\data\datasets\ys6.3cn_xianyun_manifest.json
