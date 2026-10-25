@@ -1,6 +1,6 @@
 # H2 核心功能回归结果（2026-10-25）
 
-状态：**核心音频链路通过；MSVC、50 epoch、真实浏览器 12 页签均通过。中文语音包下载完成后做最后中文测试。**
+状态：**H2 核心功能回归完成。闲云标准音源已打包并通过最终中文 RVC/评测。**
 
 ## 1. 环境
 
@@ -71,8 +71,11 @@
 ### 训练
 
 - 闲云数据集：F:\ai歌曲\音源炼制\dataset_xianyun640（同步自 F:\AMS-Studio\data\datasets\xianyun640），538 clips，3751.2s，48k
-- job_c97e6ec73cec498a，50 epoch，进行中（57.0%，已保存 e10 checkpoint）
-- e10 checkpoint 闲云第 87 条 RVC：xianyun_e10_rvc.wav，9.3973s，48kHz，peak 0.862，clipping 0，LUFS -17.0
+- job_c97e6ec73cec498a，50 epoch 实际完成；任务状态因 Gateway 7200s 超时标记 failed，但最终 pth/index/voice 均已生成
+- 最终音源：F:\AMS-Studio\data\voices\闲云\闲云.pth + 闲云.index（525,281,325 bytes）
+- 最终 RVC：job_8b6b91e3d670423f，9.3973s，48kHz，index_used=true
+- 最终评测：job_31a491ff5b8340c5，clipping=0，LUFS -17.0
+- e10 checkpoint 闲云第 87 条 RVC：xianyun_e10_rvc.wav，9.3973s，48kHz，peak 0.862
 - job_9fd0d6bcf75e4924，10 epoch，成功
 - pth：h2_train_test.pth，57,578,929 bytes
 - index：h2_train_test.index，133,466,157 bytes
@@ -112,10 +115,9 @@
 
 ## 4. 阻断/边界
 
-1. **闲云素材已解压**：`F:\ai歌曲\音源炼制\wav_xianyun` 640 wav；数据集 `xianyun640` 538 clips / 3751.2s / 0 issues；50 epoch 训练 job_c97e6ec73cec498a 进行中（57.0%）。
-2. **e10 中间模型已通过中文 RVC**；最终 50 epoch 产物待训练完成。
-3. **中文歌声听感**仍缺专门数据集；闲云语音可用于中文语音转换测试。
-4. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
+1. **训练任务状态与实际产物不一致**：job_c97e6ec73cec498a 因 Gateway 7200s 超时标记 failed，但 50 epoch、最终 pth/index/voice 和 RVC 均成功；该超时/进度问题留到音源炼制专项修复。
+2. **中文歌声听感**仍缺专门数据集；闲云语音用于中文语音转换测试。
+3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
 ## 5. F 盘清理
 
@@ -130,13 +132,15 @@
 - F:\_build-prod-final（3837 files，1.66GB）
 - F:\_build-prod-target（3837 files，1.66GB）
 
-保留：F:\AMS-Studio（生产）、F:\AMS-VM（25.47GB VM/ISO）。
+保留：F:\AMS-Studio（生产）。F:\AMS-VM 已按 H3 决定彻底拆除。
 
 ## 6. 结论
 
 核心音频链路（TTS、RVC、pymss、训练、评测、混音、项目）已通过。
 
-H2 核心功能已通过（含 MSVC 多容器、真实浏览器 12 页签、50 epoch 训练），最后等待中文语音包落盘后做闲云中文 RVC/VC 测试。
+H2 核心功能完成：MSVC 多容器、真实浏览器 12 页签、50 epoch 训练、闲云标准音源、最终中文 RVC/评测均通过。
+
+唯一记录：训练任务因 Gateway 7200s 超时标记 failed，但最终产物完整可用；该问题转入音源炼制专项修复，不影响 H2 功能验收。
 
 已部署修复后的 Gateway：`service.gateway` 本地组件已替换，mock.long 5s 正常。
 
@@ -153,4 +157,6 @@ H2 核心功能已通过（含 MSVC 多容器、真实浏览器 12 页签、50 e
 - F:\AMS-Studio\data\logs\h2_msvc.json
 - F:\AMS-Studio\data\logs\h2_msvc_rvc.json
 - F:\AMS-Studio\data\logs\h2_msvc_multi.json
+- F:\ai歌曲\音源炼制\h2_final_xianyun_rvc.json
+- F:\ai歌曲\音源炼制\h2_final_xianyun_eval.json
 - F:\AMS-Studio\data\datasets\ys6.3cn_xianyun_manifest.json（闲云 640 条）
