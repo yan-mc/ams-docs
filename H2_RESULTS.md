@@ -109,7 +109,7 @@
 
 ## 4. 阻断/边界
 
-1. **中文语音包未完整**：原神语音包 .7z.002（6.18GB）已落盘，.7z.001 仍在 IDM 临时目录（约 0.14GB），尚不能解压；已生成闲云 26 条清单。
+1. **中文语音包未完整**：原神语音包 .7z.002（6.18GB）已落盘，.7z.001 仍在 IDM 临时目录（约 6.84GB，未合并），尚不能解压；已生成闲云 **640** 条清单；第 87 条 voice_file=2c2777d3414f2926.wav。
 2. **中文歌声听感**仍缺专门数据集；闲云语音可用于中文语音转换测试。
 3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
@@ -149,4 +149,4 @@ H2 核心功能已通过（含 MSVC 多容器、真实浏览器 12 页签、50 e
 - F:\AMS-Studio\data\logs\h2_msvc.json
 - F:\AMS-Studio\data\logs\h2_msvc_rvc.json
 - F:\AMS-Studio\data\logs\h2_msvc_multi.json
-- F:\AMS-Studio\data\datasets\ys6.3cn_xianyun_manifest.json
+- F:\AMS-Studio\data\datasets\ys6.3cn_xianyun_manifest.json（闲云 640 条）
