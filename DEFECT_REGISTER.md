@@ -32,3 +32,13 @@
 - H0-D005：降级（会话 watchdog 崩溃恢复通过；系统级服务后续）
 - H0-D006：关闭（独立安装器 + feed setup 字段 + 发布清单统一）
 
+
+## H2 回归缺陷/边界（2026-10-25）
+
+- H2-D001 P1：MSVC 无真实 .msvc 样本，仅负向 INPUT_PATH_MISSING。
+- H2-D002 P1：50 epoch 训练收尾中；中文歌声数据集缺失，听感未验收。
+- H2-D003 P2：UI 仅页签静态检查，无浏览器交互/视觉自动化。
+- H2-D004 P1：mock.long 打包运行时子进程 exit 2；源码 _spawn_python 已修，待重建 Gateway。
+- H2-D005 P1：pymss runtime.json 指向嵌入式 python，已手工修为 .venv；安装/升级需修复生成逻辑。
+- H2-D006 P2：Host loopback same-origin fallback 无 token 仍 200；跨站 401；需安全评审。
+
