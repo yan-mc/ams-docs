@@ -1,142 +1,84 @@
-# H2/H3 重新校验与上传分工（2026-10-26 最终）
+# H2/H3 最终校验与上传状态（2026-10-26）
 
-## 1. 当前状态
+## TTS 对齐修复
 
-### H2
+- 根因 1：缺少 Piper pad intersperse；
+- 根因 2：旧 shim 使用 espeak_TextToPhonemes(0x100)，官方使用 TextToPhonemesWithTerminator(0x02)，并按 terminator 补标点/空格、NFD；
+- 修复后重训 v3 20 epoch；
+- ASR 对照：官方 huayan 0.833，闲云 v3 0.833；
+- 最终音源：F:/AMS-Studio/data/tts_voices/闲云/；
+- ONNX SHA256：67F2F2F0C20F7AF629C3BA68BD5690B525A3C83FB889B6958295DEE20E43C324；
+- Gateway job_2eae4d3afedc40f1 succeeded，clipping 0，peak 0.97995。
 
-- 状态：完成，保持 0.2.1 / feed 2044 发布线，不重发。
-- 闲云 RVC：F:/AMS-Studio/data/voices/闲云/闲云.pth + 闲云.index。
-- TTS 默认与闲云均已验证。
-- TTS 插件新增功能不改变 H2 latest。
+## H2 GitHub 清理
 
-### TTS 插件
+v0.2.1 已从 62 个资产清理为 10 个实际资产：
 
-- Phase 1-3 完成。
-- 全量 640 条闲云数据集。
-- 最终 20 epoch 训练：epoch=3289。
-- 最终音源：F:/AMS-Studio/data/tts_voices/闲云/。
-- 削波 limiter：clipping 0。
-- 独立 tts-train runtime：6.95GB，已分 4 片。
-- num_workers=2 在 Windows 会卡住，稳定使用 0；独立 runtime + batch 4 已可用。
-
-### H3
-
-- 状态：draft v1.0.0-rc.1，未发布。
-- 原 RC 发布物早于 TTS 插件，已过期。
-- 需要重新生成 feed 2046 和 RC 资产。
-- H3 签收仍等 H2 最终关闭，但不能把旧 RC 当最终。
-
-## 2. H2 重校验步骤
-
-1. 确认 H2 latest：feed 2044 / setup 0.2.1；
-2. 回归 RVC、pymss、TTS、评测、混音；
-3. 验证闲云 TTS；
-4. 验证 limiter（peak <= 0.98，clipping=0）；
-5. 确认 H2 release 资产不替换；
-6. 更新 H2_RESULTS，只记录 H2。
-
-## 3. H3 重校验步骤
-
-1. 以最终 TTS 音源和 runtime 为基线；
-2. 重建 Gateway/Plugin；
-3. 更新安装器（launcher 不变则复用 1.0.0-rc.1）；
-4. 生成 feed 2046：
-   - gateway 1.0.0-rc.1
-   - plugin 1.0.0-rc.1
-   - runtime.tts-train 0.1.0
-   - setup 1.0.0-rc.1
-5. 更新 manifest/SHA/签名；
-6. 干净目录安装、升级、回滚；
-7. UI CDP 12 页签 + TTS 数据集 + TTS 炼制；
-8. 归档旧 GitHub 资产；
-9. 发布 RC/最终 H3。
-
-## 4. 上传 GitHub
-
-仓库：yan-mc/ams-release
-
-### H2
-
-- 已存在 v0.2.1 release：不重复上传；
-- 源码/文档走 GitHub 仓库。
-
-### H3
-
-必须：
-
-- AMS-Studio-Setup-1.0.0-rc.1.exe
-- ams-components.json（feed 2046，签名）
+- ams-components.json
+- AMS-Studio-Setup-0.2.1.exe
 - RELEASE_MANIFEST.json
 - SHA256SUMS.txt
-- service-gateway-1.0.0-rc.1.zip
-- plugin-ams-music-bundle-1.0.0-rc.1.zip
-- 闲云.onnx（63,511,037 bytes）
-- 闲云.onnx.json（7,732 bytes）
-- 发布说明/兼容矩阵
+- ams-kernel-installlocal-0.2.1-rc.2-final.zip
+- catalog-models-2026.10.19.zip
+- voicepack-manbo.zip（唯一 RVC 音源）
+- service-gateway-0.1.0-stageg2.zip
+- plugin-ams-music-bundle-0.3.0-stageg2.zip
+- service-vc-0.1.0-mix.zip
 
-源码：
+已删除：
 
-- ams-launcher
-- ams-plugins
-- ams-services
-- ams-release
-- ams-docs
-- AMS-Studio
+- 所有 stage/test plugin/gateway 包
+- runtime-tts-0.1.0-part-001（GitHub 上未使用；feed 指向 HF）
+- tool-msvc GitHub 资产
+- 旧 0.2.0 MSI
 
-GitHub 单资产限制 2GB，所以 runtime 不上 GitHub。
+已修复 SHA256SUMS 中不存在的 ams-components-v44.json 引用。
 
-## 5. 上传 Hugging Face
+H2 latest 仍为 feed 2044 / setup 0.2.1。
 
-数据集仓库：yan2002/AI-MUSIC-STUDIO
+## H3 GitHub
 
-必须：
+- 已删除过期 draft v1.0.0-rc.1（含旧 feed/二进制）。
+- 当前 GitHub 只剩 v0.2.1 / v0.2.0。
+- H3 未发布；需要用最终 TTS/feed 2046 重新生成。
 
-- runtime.tts-train/0.1.0 分片：
-  - part-001 1,900,000,000 bytes
-  - part-002 1,900,000,000 bytes
-  - part-003 1,900,000,000 bytes
-  - part-004 1,252,733,515 bytes
-  - 总 zip 6,952,733,515 bytes
-- 基础 checkpoint：
-  epoch=3269-step=2460540.ckpt（845,898,456 bytes）
-- 现有 runtime.rvc / runtime.tts / kernel / voicepack
-- 可选 TTS 最终模型归档（若同时放 HF）
+## GitHub 上传规则
 
-不要上传到 GitHub：
+只上传：
 
-- tts-train runtime（6.95GB）
-- RVC runtime
-- kernel / voicepack
-- 大型数据集
+- 发布安装器、feed、manifest、SHA
+- H2 当前 gateway/plugin/VC 资产
+- 曼波 RVC voicepack（唯一音源）
+- 源码仓库
+- 发布说明
 
-## 6. 最终音源哈希
+不上传：
 
-F:/AMS-Studio/data/tts_voices/闲云/闲云.onnx
+- TTS 音源（tts_voices/闲云）
+- 测试音源
+- 测试日志
+- 中间计划
+- 6.95GB runtime
 
-SHA256：
+## Hugging Face
 
-1653D57C4C8CCE42739093F6A9BC8069DF4D0D910AAD4DDCE8F7E30A973597EB
+应上传：
 
-闲云.onnx.json：
+- runtime.tts-train 0.1.0 四片
+- huayan 基础 checkpoint
+- 现有 runtime.rvc/runtime.tts/kernel/voicepack
+- 不传 TTS 音源
 
-DED36CEBAEACEA9D502DB94D10ACC391090C9A355932FBFDDB7F4433ACF0D6CB
+当前状态：
 
-runtime zip：
+- 本地已生成 runtime.zip 6,952,737,876 bytes，SHA256 9975B7E3B3433122A20CC0D2359BE27D772683146C860DFBFC77B1B782FDE2F4；
+- 四片和 component.json 已生成；
+- Hugging Face 凭据无效（whoami 返回 Invalid username or password），上传被阻塞；
+- 旧 HF runtime.tts-train 尚未上传（不覆盖旧 runtime.tts）。
 
-CFB75117292A92963715C77EC7AA9208A27761A1039E4348BC88D1B7DB2AB9AC
+## 当前发布状态
 
-分片哈希在：
-
-F:/Deepseek_harness/AI音乐处理/09_发布/_TTS_TRAIN_RUNTIME/SHA256SUMS-parts.txt
-
-## 7. 最终验收
-
-- 闲云 TTS：job_d6644a0494b64861 succeeded；
-- 评测：job_f6df95a05a654383 succeeded；
-- 16.1663s / 22050Hz / clipping 0；
-- Peak 0.97995；
-- 模型列表可见“闲云”。
-
-## 8. 结论
-
-H2 保持完成状态；H3 需要以 TTS 最终音源和 feed 2046 重建 RC。GitHub 放小发布物/源码，Hugging Face 放 6.95GB 训练 runtime、checkpoint 和大资产。
+- H2：完成，GitHub 已清理。
+- H3：未发布，旧 draft 已删除。
+- TTS：v3 音源完成，本地验收通过；GitHub/HF 均未上传。
+- 下一步：提供有效 HF token，上传 runtime.tts-train；然后重建 H3 feed 2046。
