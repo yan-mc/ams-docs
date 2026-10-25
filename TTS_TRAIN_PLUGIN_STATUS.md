@@ -1,117 +1,119 @@
-# TTS 音源炼制插件 Phase 0 状态（2026-10-25）
+# TTS 音源炼制插件 Phase 1-3 完成记录（2026-10-26）
 
 ## 结论
 
-Windows 原生 Piper VITS 训练链路已打通；不需要 WSL、不需要 C 盘 AMS data。
+TTS 音源炼制插件已完成 Phase 1-3 的可运行闭环，并用 640 条完整闲云数据集完成训练、ONNX 注册和 TTS 合成测试。
 
-当前只完成 PoC，不是完整插件。
+## Phase 1：运行时与基础模型
 
-## 已打通
-
-### 1. 训练运行时
-
-目录：
-
-F:/AMS-Studio/data/runtime/tts-train/0.1.0
-
-包含：
-
-- Piper 官方训练源码
-- espeak-ng.dll + espeak-ng-data
-- 自定义 piper_phonemize shim
+- Windows 原生 Piper/VITS 训练链路
+- espeak-ng.dll + 自定义 piper_phonemize shim
 - numba monotonic_align fallback
-- pytorch-lightning 1.9.5 deps
-- 复用 RVC 运行时的 Python 3.9 + torch 2.0 + CUDA
+- 补齐缺失 IPA 音素：@ S A N E X I [
+- 中文 huayan medium checkpoint：
+  F:/AMS-Studio/data/runtime/tts-train/0.1.0/checkpoints/epoch=3269-step=2460540.ckpt
+- 1 epoch fine-tune 成功，ONNX 导出并由 Piper 加载
 
-### 2. 音素化
+## Phase 2：Gateway
 
-- 无 Windows piper-phonemize wheel；
-- 使用现有 espeak-ng.dll；
-- 通过 ctypes 调用 espeak_TextToPhonemes；
-- 生成中文 IPA 音素；
-- 适配 piper_train.preprocess。
+新增 job 类型：
 
-### 3. 预处理
+- train.tts
+- tts.dataset.prepare
+- 复用 tts.synthesize
 
-20 条闲云片段：
+train.tts 流程：
 
-    data/datasets/tts/xianyun_smoke
-      wav/
-      metadata.csv
+1. 校验 metadata.csv + wav/
+2. piper_train.preprocess
+3. medium checkpoint fine-tune
+4. 自动发现 checkpoint
+5. export_onnx
+6. 复制 .onnx.json
+7. 原子注册 data/tts_voices/<name>
+8. artifacts: model/config
 
-输出：
+已通过：
 
-    data/tts_train/xianyun_smoke_pre
-      config.json
-      dataset.jsonl
-      cache/
+- job_407162acfa0d4800 train.tts succeeded
+- job_dc34b618661a458a tts.dataset.prepare succeeded
 
-结果：成功。
+## Phase 3：UI
 
-### 4. 训练
+已增加页签：
 
-修正：
+- TTS 数据集
+- TTS 音源炼制
 
-- num_workers 默认 1 -> 0（Windows DataLoader spawn 问题）；
-- VAD 显式 CPUExecutionProvider；
-- phoneme_ids 必须是扁平 int 列表。
+UI 支持：
 
-结果：
+- 数据集目录/名称
+- 语言 cmn/en-us
+- epochs / batch
+- base checkpoint
+- quality
+- 任务提交/进度/取消（通用 Jobs 面板）
+- 训练完成后模型进入 TTS 模型列表
 
-    job 本地 1 epoch
-    TRAIN_OK
-    checkpoint: data/tts_train/xianyun_smoke_run/lightning_logs/version_5/checkpoints/epoch=0-step=14.ckpt
+UI 包已构建并部署到：
 
-### 5. ONNX 导出
+F:/AMS-Studio/data/kernel/dsh/profiles/desktop/node_modules/@ams/plugin-ui
 
-    data/tts_train/xianyun_smoke.onnx
-    63,511,037 bytes
+刷新 AMS 页面即可看到新页签。
 
-Piper 加载成功，输出：
+## 完整闲云数据集测试
 
-    data/tts_train/xianyun_smoke.wav
-    36,000 bytes
+数据集：
 
-## 当前已知问题
+    F:/AMS-Studio/data/datasets/tts/xianyun_full
+    640 wav
+    393,066,206 bytes
+    metadata.csv
 
-1. 音素表只有 152 项，espeak 输出缺 8 个符号：
-   @ S A N E X I [
-   需要完整 espeak map，否则部分中文会退化为 padding。
+训练：
 
-2. 当前是从零训练 1 epoch，只验证链路，不是可用音质。
+    job_c43295f1661d4534
+    status: succeeded
+    progress: 100.0
+    stage: done
+    model: xianyun_tts_full
+    epochs: 1
+    base: huayan medium epoch=3269
 
-3. 还没有下载/接入 medium 基础 checkpoint。
+模型：
 
-4. 还没有 Gateway train.tts job。
+    F:/AMS-Studio/data/tts_voices/xianyun_tts_full/
+      xianyun_tts_full.onnx       63,511,037 bytes
+      xianyun_tts_full.onnx.json       7,732 bytes
+      voice.json
 
-5. 还没有 UI 数据集/训练页。
+合成：
 
-6. 还没有把训练 runner 打包成正式 runtime 组件。
+    job_39a55eeb39d44ea1 succeeded
+    text: 你好，我是闲云。这是使用完整数据集炼制的语音。
+    duration: 7.8652s
+    sample_rate: 22050
 
-## 下一阶段
+评测：
 
-Phase 1：
-
-1. 生成完整 espeak 音素表；
-2. 下载中文/通用 medium checkpoint 到 data；
-3. 1 epoch fine-tune 验证；
-4. 输出可听的测试音频。
-
-Phase 2：
-
-1. Gateway train.tts / tts.dataset.prepare / tts.export；
-2. 进度、取消、恢复；
-3. 自动注册到 data/tts_voices。
-
-Phase 3：
-
-1. UI TTS 音源炼制页；
-2. 数据集导入/校验；
-3. 训练参数/模型试听。
+    job_0365e2e073614bcc succeeded
+    peak: 0.999969
+    clipping_samples: 2
+    rms_dbfs: -14.64
+    lufs: -13.5
+    silence_ratio: 0.139
 
 ## 注意
 
-- 当前所有 PoC 数据和依赖都在 F:/AMS-Studio/data。
-- 没有写 C 盘 AMS data。
-- 没有启动正式 TTS 训练。
-- H2/H3 未继续。
+- 这是 1 epoch fine-tune，主要用于全量链路验收，不是最终音质版本。
+- 输出有 2 个 clipping samples，后续可在合成后加安全限幅。
+- 运行时依赖目前复用 RVC Python + data/runtime/tts-train 的 deps；正式发布需要打包成独立 runtime 组件。
+- 当前 Gateway 端口以 data/runtime/ports.json 为准（最后为 10198）。
+- 未继续 H3。
+
+## 关键路径
+
+- 训练脚本：ams-services/gateway/app/runners/scripts/tts_train.py
+- 数据集脚本：ams-services/gateway/app/runners/scripts/tts_dataset.py
+- Runner：ams-services/gateway/app/runners/tts_train.py
+- UI：ams-plugins/packages/plugin-ui/src/client.js
