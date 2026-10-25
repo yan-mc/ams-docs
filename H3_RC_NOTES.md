@@ -25,7 +25,7 @@ F:/Deepseek_harness/AI音乐处理/09_发布/_H3_1.0.0-rc.1
 
 | 文件 | 字节 |
 |---|---:|
-| AMS-Studio-Setup-1.0.0-rc.1.exe | 3,089,586 |
+| AMS-Studio-Setup-1.0.0-rc.1.exe | 3,090,153 |
 | service-gateway-1.0.0-rc.1.zip | 16,809,831 |
 | plugin-ams-music-bundle-1.0.0-rc.1.zip | 45,852 |
 | ams-components.json（feed 2045，已签名） | 8,085 |
@@ -34,7 +34,7 @@ F:/Deepseek_harness/AI音乐处理/09_发布/_H3_1.0.0-rc.1
 
 setup SHA256：
 
-887C04A06F749C0DEBFB6EC16DC3FE4F1A1FFF56CFBFA700A34BAFABB93370F4
+21D0C12F3AB00EBAAB1DDDA22AB88E342CA7508E6FF113866A39C81AF9922BE8
 
 feed SHA256：
 
