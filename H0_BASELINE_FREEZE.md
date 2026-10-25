@@ -14,12 +14,12 @@ H0 基线冻结完成。自此进入“功能冻结、只修复发布阻断”�
 
 | 模块 | 仓库 | commit |
 |---|---|---|
-| umbrella | AMS-Studio | 4a3a298 |
+| umbrella | AMS-Studio | tag:h0-baseline-20261025 |
 | launcher | ams-launcher | e130e17 |
 | kernel | ams-harness | b21fa26 |
 | plugins | ams-plugins | 04461d5 |
 | services | ams-services | 216607a |
-| docs | ams-docs | 4fb627a |
+| docs | ams-docs | tag:h0-baseline-20261025 |
 | release | ams-release | 727c3e6 |
 | tools | ams-tools | da17d45 |
 

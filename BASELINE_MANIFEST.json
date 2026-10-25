@@ -8,12 +8,12 @@
     "sha256": "D2DEFF5125CD857F41D9CE7A7C689E79A1DDA88AADA55F486DF4AE6060338B45"
   },
   "commits": {
-    "umbrella": "4a3a29871d99fb651bb938bad8e560b645b79c65",
+    "umbrella": "tag:h0-baseline-20261025",
     "launcher": "e130e17f21ca6fa0f14efaf3bd7fc62f14746a5b",
     "kernel": "b21fa260bb4afccef2886b3730e8baafbd07de55",
     "plugins": "04461d5603a07d8427ffe2db9b3d338ef3d32191",
     "services": "216607a0a09e9b4983250fdba6819f2a403b9e8d",
-    "docs": "4fb627a7fb016ada4057f3f9a1789f7796f95221",
+    "docs": "tag:h0-baseline-20261025",
     "release": "727c3e6473cda3ff7a1bed3564c8be2aa9833579",
     "tools": "da17d45f1aaa87d30d5da1792099308a3ce48512"
   },
