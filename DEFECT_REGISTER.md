@@ -43,3 +43,13 @@
 - H2-D006 P2：Host loopback same-origin fallback 无 token 仍 200；跨站 401；需安全评审。
 
 - H2-D002：50 epoch 已通过；剩余为中文歌声数据集/听感。
+
+## H2 更新（2026-10-25 18:05）
+
+- H2-D001：关闭（苏苏/法国赌神/爱莉希雅 3 个 .msvc 正向转换 + RVC 推理通过）
+- H2-D002：保留（中文语音包下载中；中文歌声听感待做）
+- H2-D003：关闭（Edge CDP 真实页面 12 页签逐一点击通过）
+- H2-D004：关闭（Gateway 已重建部署，mock.long 5s 正常）
+- H2-D005：保留（pymss runtime.json 已手工修正；安装生成逻辑仍需固化）
+- H2-D006：保留（loopback 无 token 本机访问；待安全评审）
+
