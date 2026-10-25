@@ -1,0 +1,11 @@
+Path,Bytes,SHA256,Role
+F:\AMS-Studio\data\assets\preview_voice.wav,68256,707026A3AE02A2292D884EFF5238069FA8F5B3E0400F981050EC20530513C832,voice preview
+F:\AMS-Studio\data\projects\imports\e_audit_3min.wav,17280078,27C2A8ED9AD56EF9484AF4CB33D5D8D2DEA9A53E60550EF0E6E6938F94919285,3min convert
+F:\AMS-Studio\data\projects\imports\e_audit_12min_long.wav,69984078,AA73E3A186166BDA7FA1E04238612DD2F9F4435A08F1E39AC30B299A6B55AB19,12min chunk
+F:\AMS-Studio\data\datasets\ljspeech15\dataset.json,17749,5BB3DAC49F08AC585697FBDF15E9D472ACC3D38CE4E6C232BB017E13DA677E3D,train dataset
+F:\AMS-Studio\data\tts_voices\zh_CN-huayan-medium\zh_CN-huayan-medium.onnx,63201294,9929917BF8CABB26FD528EA44D3A6699C11E87317A14765312420BE230BE0F3D,zh TTS
+F:\AMS-Studio\data\tts_voices\en_US-lessac-medium\en_US-lessac-medium.onnx,63201294,5EFE09E69902187827AF646E1A6E9D269DEE769F9877D17B16B1B46EEAAF019F,en TTS
+F:\AMS-Studio\data\datasets\d0_smoke,,,test dataset
+F:\AMS-Studio\data\datasets\d0_prepared,,,test dataset
+F:\AMS-Studio\data\datasets\d0_gateway,,,test dataset
+F:\AMS-Studio\data\datasets\libri422,,,test dataset
