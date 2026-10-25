@@ -70,6 +70,8 @@
 
 ### 训练
 
+- 闲云数据集：F:\AMS-Studio\data\datasets\xianyun640，538 clips，3751.2s，48k
+- job_c97e6ec73cec498a，50 epoch，进行中
 - job_9fd0d6bcf75e4924，10 epoch，成功
 - pth：h2_train_test.pth，57,578,929 bytes
 - index：h2_train_test.index，133,466,157 bytes
@@ -109,7 +111,7 @@
 
 ## 4. 阻断/边界
 
-1. **中文语音包未完整**：原神语音包 .7z.002（6.18GB）已落盘，.7z.001 仍在 IDM 临时目录（约 6.84GB，未合并），尚不能解压；已生成闲云 **640** 条清单；第 87 条 voice_file=2c2777d3414f2926.wav。
+1. **闲云素材已解压**：`F:\ai歌曲\音源炼制\wav_xianyun` 640 wav；数据集 `xianyun640` 538 clips / 3751.2s / 0 issues；50 epoch 训练 job_c97e6ec73cec498a 进行中。
 2. **中文歌声听感**仍缺专门数据集；闲云语音可用于中文语音转换测试。
 3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
