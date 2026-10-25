@@ -19,7 +19,7 @@
 1. 自动化套件；
 2. feed/setup 统一；
 3. 文档；
-4. 干净 VM RC；
+4. 干净目录/便携 RC（VM 方案已废弃）；
 5. 缺陷清零。
 
 ## 3. 当前信息核对
@@ -85,22 +85,21 @@ Release manifest 测试：
 - H2 音频回归：ad-hoc 脚本；
 - UI：Edge CDP 脚本，临时放在 data/logs；
 - 安装器：手工测试；
-- 干净 VM：未自动化。
+- 干净 VM：方案已废弃，改为干净目录/便携 RC。
 
 结论：**没有单一 H3 QA 命令，是 H3 P1 阻断。**
 
-### 干净 VM
+### 干净 VM（已废弃）
 
-资产：
+2026-10-25 已彻底拆除 `F:\AMS-VM`：VHDX、Windows ISO、Autounattend、Hyper-V 配置、pycdlib 工具及空目录全部删除；`F:\` 仅保留 `F:\AMS-Studio`。
 
-    F:\AMS-VM\VHDX\AMS-Test.vhdx        18,224,250,880
-    F:\AMS-VM\ISO\Windows11...iso       9,112,440,832
-    F:\AMS-VM\Autounattend\autounattend.xml
-    F:\AMS-VM\Hyper-V\AMS-Test\*.vmcx
+原因：虚拟机无法正常调用 RTX 4080，VM 内无法完成 RVC/pymss/VC 的真实 GPU 验收。
 
-Hyper-V 服务 vmms/vmcompute 运行中；但 Get-VM 当前无输出，VM 注册/权限待确认。
+H3 替代方案：
 
-结论：VM 资产齐全，可作为 H3 RC 基础；必须先验证 VM 可启动和快照回滚。
+- 干净目录安装 RC（`F:\AMS-Studio-RC-Clean` 或新的空白目录）；
+- 便携 RC 包；
+- 如必须真正全新系统，使用独立物理机，不再用无 GPU 的 VM。
 
 ### 文档
 
@@ -144,7 +143,7 @@ RELEASE_2042.md 仍是旧发布说明。
 7. UI 12 页签 CDP smoke；
 8. 安装/升级/卸载/保留 data；
 9. TTS/evaluate/mix 音频 smoke；
-10. VM 安装 smoke（可选但 RC 必跑）。
+10. 干净目录/便携 RC 安装 smoke（RC 必跑）。
 
 输出：
 
@@ -173,19 +172,18 @@ RELEASE_2042.md 仍是旧发布说明。
 
 验收：从 GitHub 下载 setup + feed，哈希/签名/版本一致。
 
-### D. 干净 VM RC
+### D. 干净目录/便携 RC
 
-- 启动 AMS-Test 或在 Hyper-V 新建干净 VM；
-- 使用干净的 Windows 11 ISO/Autounattend；
+- 使用全新空白目录 `F:\AMS-Studio-RC-Clean`；
 - 安装 RC setup；
 - 启动 Kernel/Gateway/UI；
 - 检查无 C 盘 AMS data；
 - 从 0.2.1 升级到 RC，确认 voices/projects/config 不变；
 - 卸载 RC，确认 data 保留；
 - 回滚到 0.2.1（如回滚包存在）；
-- 记录 VM 快照和证据。
+- 记录目录快照/文件清单和证据。
 
-验收：全新 VM 30 分钟内启动；升级/卸载/回滚 data 安全。
+验收：全新目录 30 分钟内启动；升级/卸载/回滚 data 安全。
 
 ### E. 文档
 
@@ -226,7 +224,7 @@ P0/P1 未清零不得签 RC。
 | H3-1 | 版本统一 | 所有 RC 组件同版本/映射明确 |
 | H3-2 | 自动化 | 单一命令，结果 JSON，失败可定位 |
 | H3-3 | feed/setup | 签名、哈希、manifest、setup 一致 |
-| H3-4 | 干净 VM | 安装/启动/升级/卸载/回滚全通过 |
+| H3-4 | 干净目录/便携 RC | 安装/启动/升级/卸载/回滚全通过 |
 | H3-5 | 文档 | 安装/升级/回滚/已知问题完整 |
 | H3-6 | 缺陷 | P0/P1 清零，P2 有豁免记录 |
 | H3-7 | 数据安全 | 无 C 盘 AMS data，卸载保留 data |
@@ -242,7 +240,7 @@ Day 2：QA 环境自包含、release 测试修复、统一 QA 入口。
 
 Day 3：构建 RC 组件/setup、签名、feed 2045、SHA256SUMS。
 
-Day 4：干净 VM 安装/升级/卸载/回滚。
+Day 4：干净目录/便携 RC 安装/升级/卸载/回滚。
 
 Day 5：文档、离线包、资产保留策略。
 
@@ -255,7 +253,7 @@ Day 7：RC tag、发布候选清单、H3 签收。
 - H2 中文闲云训练完成并通过最终 RVC；
 - H2 未完成项关闭或豁免；
 - RC 版本决策；
-- VM 启动/快照权限确认；
+- 干净目录/便携 RC 方案确认；
 - 旧版回滚包确认。
 
 ## 8. H3 当前结论
@@ -270,7 +268,7 @@ H3 预检完成，但**不能直接进入 RC**。
 
 随后处理：
 
-- VM 注册/启动；
+- 干净目录/便携 RC；
 - 自动化入口；
 - 文档/回滚/离线；
 - 缺陷清零。
