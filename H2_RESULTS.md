@@ -70,7 +70,7 @@
 
 ### 训练
 
-- 闲云数据集：F:\AMS-Studio\data\datasets\xianyun640，538 clips，3751.2s，48k
+- 闲云数据集：F:\ai歌曲\音源炼制\dataset_xianyun640（同步自 F:\AMS-Studio\data\datasets\xianyun640），538 clips，3751.2s，48k
 - job_c97e6ec73cec498a，50 epoch，进行中（57.0%，已保存 e10 checkpoint）
 - e10 checkpoint 闲云第 87 条 RVC：xianyun_e10_rvc.wav，9.3973s，48kHz，peak 0.862，clipping 0，LUFS -17.0
 - job_9fd0d6bcf75e4924，10 epoch，成功
