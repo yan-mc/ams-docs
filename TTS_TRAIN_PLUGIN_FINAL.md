@@ -54,7 +54,7 @@ TTS Gateway 已加入峰值 limiter：
 正式包：
 
     F:/Deepseek_harness/AI音乐处理/09_发布/_TTS_TRAIN_RUNTIME/
-      runtime.tts-train-0.1.0.zip  6,952,728,476 bytes
+      runtime.tts-train-0.1.0.zip  6,952,733,515 bytes
       part-001 ... part-004
       SHA256SUMS-parts.txt
 
@@ -74,7 +74,7 @@ runtime.json / MANIFEST.json 已生成。
 哈希：
 
     闲云.onnx
-    782F92D03E6DD67644802C95B72EFD3705D44DEAC919A74FB3A1A56630A49DEF
+    1653D57C4C8CCE42739093F6A9BC8069DF4D0D910AAD4DDCE8F7E30A973597EB
 
     闲云.onnx.json
     DED36CEBAEACEA9D502DB94D10ACC391090C9A355932FBFDDB7F4433ACF0D6CB
