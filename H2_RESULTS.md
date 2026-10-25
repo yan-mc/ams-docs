@@ -27,7 +27,7 @@
 | 评测 | 同输入两次指标一致 | 通过 |
 | 混音 | 2/4 轨、响度/true peak | 通过 |
 | 实时 VC | 设备枚举、passthrough 30 分钟长稳 | 通过（180/180 采样，overflows=0） |
-| MSVC | 苏苏.msvc 正向转换 + pth RVC 推理 | 通过 |
+| MSVC | 3 个 .msvc 正向转换 + pth RVC 推理 | 通过 |
 | UI | Edge CDP 真实页面逐一点击 12 页签 | 通过 |
 
 ## 3. 关键证据
@@ -46,6 +46,11 @@
 - job_d93e96a0631a4c7e，成功
 - 输出：曼波Pro.pth + conversion.json
 - 转换后 pth RVC：job_c8d664bdd5374942，成功，48000Hz
+- 多样本：法国赌神 job_17397059fa2f4a3b、爱莉希雅 job_119f025d5f4542ef 均成功
+
+### UI
+
+- Edge CDP 真实页面，session 鉴权、SSE、12 页签全部可点击/渲染。
 
 ### UI
 
@@ -108,15 +113,15 @@
 
 ## 4. 阻断/边界
 
-1. **中文语音包尚未落盘**：原神 6.3 语音包正在下载，Downloads 目前无文件；已生成闲云 26 条清单。
-2. **中文歌声听感**仍缺专门的数据集；闲云语音可用于中文语音转换测试。
+1. **中文语音包正在下载**：IDM 分段在 AppData\Roaming\IDM\DwnlData 持续增长，Downloads 尚未出现最终文件；已生成闲云 26 条清单。
+2. **中文歌声听感**仍缺专门数据集；闲云语音可用于中文语音转换测试。
 3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
 ## 5. 结论
 
 核心音频链路（TTS、RVC、pymss、训练、评测、混音、项目）已通过。
 
-H2 核心功能已通过，最后等待中文语音包落盘后做闲云中文 RVC/VC 测试。
+H2 核心功能已通过（含 MSVC 多容器、真实浏览器 12 页签、50 epoch 训练），最后等待中文语音包落盘后做闲云中文 RVC/VC 测试。
 
 已部署修复后的 Gateway：`service.gateway` 本地组件已替换，mock.long 5s 正常。
 
@@ -132,4 +137,5 @@ H2 核心功能已通过，最后等待中文语音包落盘后做闲云中文 R
 - F:\AMS-Studio\data\logs\vc_30min.json
 - F:\AMS-Studio\data\logs\h2_msvc.json
 - F:\AMS-Studio\data\logs\h2_msvc_rvc.json
+- F:\AMS-Studio\data\logs\h2_msvc_multi.json
 - F:\AMS-Studio\data\datasets\ys6.3cn_xianyun_manifest.json
