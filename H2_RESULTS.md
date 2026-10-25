@@ -50,10 +50,6 @@
 
 ### UI
 
-- Edge CDP 真实页面，session 鉴权、SSE、12 页签全部可点击/渲染。
-
-### UI
-
 - Edge 真实页面：标题 AMS Kernel，session 鉴权，SSE 已结束
 - 12 个页签逐一点击：项目、实时变声、音色库、TTS 批量、音源炼制、数据集工作室、评测器、混音母带、人声分离、歌曲换源、MSVC 工具、TTS 语音合成
 - 每个页签点击后页面均正常渲染并包含对应内容
@@ -113,11 +109,26 @@
 
 ## 4. 阻断/边界
 
-1. **中文语音包正在下载**：IDM 分段在 AppData\Roaming\IDM\DwnlData 持续增长，Downloads 尚未出现最终文件；已生成闲云 26 条清单。
+1. **中文语音包未完整**：原神语音包 .7z.002（6.18GB）已落盘，.7z.001 仍在 IDM 临时目录（约 0.14GB），尚不能解压；已生成闲云 26 条清单。
 2. **中文歌声听感**仍缺专门数据集；闲云语音可用于中文语音转换测试。
 3. Host 的 loopback same-origin fallback 允许无 token 访问本机 API；跨站请求已返回 401，需安全评审。
 
-## 5. 结论
+## 5. F 盘清理
+
+已逐文件删除测试安装：
+
+- F:\AMS-Studio-CleanTest（171 files）
+- F:\AMS-Studio-H1Clean（1 file）
+- F:\AMS-Studio-H1Final（5 files）
+
+已逐文件删除死构建缓存：
+
+- F:\_build-prod-final（3837 files，1.66GB）
+- F:\_build-prod-target（3837 files，1.66GB）
+
+保留：F:\AMS-Studio（生产）、F:\AMS-VM（25.47GB VM/ISO）。
+
+## 6. 结论
 
 核心音频链路（TTS、RVC、pymss、训练、评测、混音、项目）已通过。
 
@@ -125,7 +136,7 @@ H2 核心功能已通过（含 MSVC 多容器、真实浏览器 12 页签、50 e
 
 已部署修复后的 Gateway：`service.gateway` 本地组件已替换，mock.long 5s 正常。
 
-## 6. 日志
+## 7. 日志
 
 - F:\AMS-Studio\data\logs\h2_core.json
 - F:\AMS-Studio\data\logs\h2_rvc.json
