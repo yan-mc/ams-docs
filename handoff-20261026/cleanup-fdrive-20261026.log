@@ -1,0 +1,53 @@
+17:25:14 === cleanup start ===
+17:25:14 kill cdp edge pid=23584
+17:25:17 kill gateway pid=27860 "F:\AMS-H4-H3\data\components\service.gateway\ams-gateway.exe" --ams-home F:\AMS
+17:25:17 kill gateway pid=28344 "F:\AMS-H5-VERIFY\data\components\service.gateway\ams-gateway.exe" --ams-home F:
+17:25:17 kill kernel tree pid=28220
+17:25:17 kill kernel tree pid=22108
+17:25:20 processes stopped
+17:25:20 DELETE F:\AMS-H2-VERIFY files=1 MB=0
+17:25:20 deleted=True F:\AMS-H2-VERIFY
+17:25:20 DELETE F:\AMS-BUILD-VERIFY files=1 MB=0
+17:25:20 deleted=True F:\AMS-BUILD-VERIFY
+17:25:20 DELETE F:\_gw-selftest files=6 MB=0.1
+17:25:20 deleted=True F:\_gw-selftest
+17:25:20 DELETE F:\_gw-selftest2 files=6 MB=0.1
+17:25:20 deleted=True F:\_gw-selftest2
+17:25:20 DELETE F:\_gw-selftest-h5 files=6 MB=0.1
+17:25:20 deleted=True F:\_gw-selftest-h5
+17:25:20 DELETE F:\_edge-cdp-profile files=2205 MB=605.1
+17:25:21 deleted=True F:\_edge-cdp-profile
+17:25:21 DELETE F:\_edge-cdp-cache files=181 MB=18.8
+17:25:21 deleted=True F:\_edge-cdp-cache
+17:25:21 DELETE F:\_edge-cdp-tmp files=1 MB=0
+17:25:21 deleted=True F:\_edge-cdp-tmp
+17:25:21 DELETE F:\_logs files=158 MB=20.7
+17:25:21 deleted=True F:\_logs
+17:25:21 DELETE F:\_agent_music_test files=18 MB=0.1
+17:25:21 deleted=True F:\_agent_music_test
+17:25:21 DELETE F:\_trash\ams-test-residue-20261026 files=1 MB=127.9
+17:25:21 deleted=True F:\_trash\ams-test-residue-20261026
+17:25:21 DELETE F:\_trash\build-artifacts-20261026 files=4 MB=11.9
+17:25:21 deleted=True F:\_trash\build-artifacts-20261026
+17:25:21 small dirs done
+17:25:31 run uninstaller F:\AMS-Studio\AMS-Studio-Uninstall.exe
+17:25:31 uninstall exit=0
+17:25:34 data to remove files=149 MB=9.54
+17:25:34 DELETE F:\AMS-Studio
+17:25:34 DELETE-BEGIN F:\AMS-H4-H3 files=138668 GB=66.88
+17:25:34 AMS-Studio gone=True
+17:25:34 yanmc keys remain (will clean)
+17:25:40 removed registry CleanTest uninstall key
+17:25:40 removed registry yanmc CleanTest key
+17:25:40 removed empty HKCU\Software\yanmc
+17:25:59   mirror-file ams-components.json sha=2d75ab5b31c4061b44d2b799f44332f960feba081fb41378bb30b38947bccb0e bytes=9030
+17:25:59   mirror-file h4-feed-2051.local-mirror.unsigned.json sha=62b12110ef8d80636697c215ca98b01266a69396288876ae6ba1e9f546726098 bytes=9249
+17:25:59 removed F:\Deepseek_harness\AI音乐处理\09_发布\当前\H4_1.0.0-rc.2_feed2051\local-mirror gone=True
+17:25:59   mirror-file ams-components.json sha=67dcb8bd8adee27be7d1baca9319ca3c5fc5e9c1fa508a21d322aa3238a0c264 bytes=8990
+17:25:59   mirror-file h5-feed-2052.local-mirror.unsigned.json sha=671065d770f59d901e1a230f5c9582a18f579468a592d70c8ec3e8062918c28d bytes=9209
+17:25:59 removed F:\Deepseek_harness\AI音乐处理\09_发布\当前\H5_1.0.0_feed2052\local-mirror gone=True
+17:26:00 SHA256SUMS-当前 regenerated files=36
+17:27:10 DELETE-END F:\AMS-H4-H3 gone=True seconds=96
+17:27:18 DELETE-BEGIN F:\AMS-H4-RC2 files=128141 GB=59.24
+17:28:40 DELETE-END F:\AMS-H4-RC2 gone=True seconds=82
+17:28:46 DELETE-BEGIN F:\AMS-H5-VERIFY files=128193 GB=59.24
