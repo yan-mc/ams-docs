@@ -157,7 +157,8 @@ F:/Deepseek_harness/AI音乐处理/08_项目代码
 | 当前/H3_1.0.0-rc.1_feed2050/ | H3 superseded 候选物料 |
 | 当前/H4_1.0.0-rc.2_feed2051/ | H4 候选物料（rc.2） |
 | 当前/H5_1.0.0_feed2052/ | v1.0.0 发布物料（previous stable）：feed 2052、setup 1.0.0、gateway/plugin 1.0.0、manifest、SHA、release-notes |
-| 当前/H5.1_1.0.1_feed2053/ | **当前 latest 发布物料（v1.0.1）**：feed 2053、setup 1.0.1、manifest、SHA、release-notes（gateway/plugin 复用 v1.0.0 资产） |
+| 当前/H5.1_1.0.1_feed2053/ | v1.0.1 补丁物料（previous stable）：feed 2053、setup 1.0.1、manifest、SHA、release-notes |
+| 当前/H5.2_1.0.2_feed2054/ | **当前 latest 发布物料（v1.0.2）**：feed 2054、setup 1.0.2、manifest、SHA、release-notes（gateway/plugin 复用 v1.0.0 资产） |
 | 历史/ | 旧快照/旧 feed/旧上传脚本（STALE/LEGACY 说明），只读不改 |
 
 - 验证用 `local-mirror` feed 已随 F 盘测试环境清理而删除（重建方法见 `_接管审计/ops/make_local_mirror_feed.py`，需重新准备本地 runtime/资产副本）。
