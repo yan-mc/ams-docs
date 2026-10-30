@@ -147,30 +147,31 @@ F:/Deepseek_harness/AI音乐处理/08_项目代码
 
 ## 4. 09_发布
 
-2026-10-26 重组后结构（发布/回滚只认 `当前/`）：
+2026-10-26 重组、2026-10-30 增补 H5.1 后结构（发布/回滚只认 `当前/`）：
 
 | 路径 | 作用 |
 |---|---|
 | README.md | 发布 SOP：版本矩阵、资产↔GitHub 映射、发布/回滚步骤、禁止事项 |
-| SHA256SUMS-当前.txt | `当前/` 下全部文件 sha256（36 个文件） |
+| SHA256SUMS-当前.txt | `当前/` 下全部文件 sha256 |
 | 当前/H2_0.2.1_feed2049/ | H2 回滚源：feed 2049、setup、kernel、catalog、voicepack、gateway/plugin stageg2、service-vc、manifest、SHA、PROVENANCE |
 | 当前/H3_1.0.0-rc.1_feed2050/ | H3 superseded 候选物料 |
 | 当前/H4_1.0.0-rc.2_feed2051/ | H4 候选物料（rc.2） |
-| 当前/H5_1.0.0_feed2052/ | **当前 latest 发布物料**：feed 2052、setup 1.0.0、gateway/plugin 1.0.0、manifest、SHA、release-notes |
+| 当前/H5_1.0.0_feed2052/ | v1.0.0 发布物料（previous stable）：feed 2052、setup 1.0.0、gateway/plugin 1.0.0、manifest、SHA、release-notes |
+| 当前/H5.1_1.0.1_feed2053/ | **当前 latest 发布物料（v1.0.1）**：feed 2053、setup 1.0.1、manifest、SHA、release-notes（gateway/plugin 复用 v1.0.0 资产） |
 | 历史/ | 旧快照/旧 feed/旧上传脚本（STALE/LEGACY 说明），只读不改 |
 
-- 验证用 `local-mirror` feed 已随 F 盘测试环境清理而删除（它是本机验证产物、引用测试目录路径；重建方法见 `_接管审计/ops/make_local_mirror_feed.py`，需重新准备本地 runtime/资产副本）。
+- 验证用 `local-mirror` feed 已随 F 盘测试环境清理而删除（重建方法见 `_接管审计/ops/make_local_mirror_feed.py`，需重新准备本地 runtime/资产副本）。
 - 正式资产以 GitHub release 为准；本地 `当前/` 用于回滚、复核与离线安装。
 
-## 5. F:/AMS-Studio 当前状态（2026-10-26 17:25 起）
+## 5. F:/AMS-Studio 当前状态（2026-10-30 起）
 
-**已彻底卸载并删除（包括 data）**，等待用户全新安装 v1.0.0。
+用户已按 v1.0.0 setup 安装并试用；2026-10-30 处理了两项安装器问题：
 
-- 卸载方式：先运行 `AMS-Studio-Uninstall.exe /S`（移除程序文件、保留 data、清理注册表），再按用户要求删除整个安装目录（含 data）。
-- 注册表 `AMS Studio` / `AMS Studio CleanTest` / `HKCU\Software\yanmc` 均已清理。
-- 全新安装：运行 v1.0.0 setup（默认安装到 `F:/AMS-Studio`），launcher 从 `releases/latest/download/ams-components.json`（feed 2052）下载组件；
-  - 若 GitHub 大文件下载中断（已知问题），可重试 `ams-launcher.exe --install-components`，或联系维护者准备离线/镜像 feed。
-- 安装包位置：GitHub release `v1.0.0`，或本地 `09_发布/当前/H5_1.0.0_feed2052/AMS-Studio-Setup-1.0.0.exe`。
+- 已清空 `data/components/downloads`（v1.0.0 遗留的 35.4GB 暂存包，安装 59.31GB → 24.73GB）；
+- 已删除重复的 `AMS-Studio-Uninstall.exe`，注册表 `UninstallString` 指向 `uninstall.exe`；
+- 当前 launcher 仍为 **1.0.0**；建议运行 v1.0.1 setup 覆盖安装（只更新 launcher/安装器，保留 `data/` 用户数据），升级后 downloads 永久自动清空、不再产生第二个卸载器。
+- 安装包位置：GitHub release `v1.0.1`，或本地 `09_发布/当前/H5.1_1.0.1_feed2053/AMS-Studio-Setup-1.0.1.exe`。
+- 若 GitHub 大文件下载中断（已知问题），可重试 `ams-launcher.exe --install-components`；暂存残留可用 `ams-launcher.exe --cleanup-downloads` 清理（v1.0.1+）。
 
 ## 6. GitHub 仓库
 

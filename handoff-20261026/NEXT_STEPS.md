@@ -1,17 +1,29 @@
-# AMS Studio 后续任务清单（v1.0.0 发布后）
+# AMS Studio 后续任务清单
 
-更新：2026-10-26 17:30（Asia/Shanghai）  
+更新：2026-10-30 23:05（Asia/Shanghai）  
 状态基准：[`CURRENT_STATE.md`](CURRENT_STATE.md)（版本/feed/哈希/发布状态以它为准）  
-适用范围：v1.0.0 已发布并 latest 之后仍未完成的工作。
+适用范围：**v1.0.1（latest）之后仍未完成的工作**。
 
 ---
 
 ## 0. 已完成（供对照）
 
-- **H0–H5 全部完成**：H4 已签字，v1.0.0 已发布（feed 2052，latest 切换）。
+- **H0–H5 全部完成**：H4 已签字，v1.0.0 已发布（feed 2052）。
+- **H5.1 v1.0.1 已发布（feed 2053，latest）**：修复安装/更新磁盘占用与双卸载器（见 §1.1）。
 - H3 验收证据补齐：UI 14 页签 CDP（14/14，两套环境）、GPU E2E（基础 6/6、12 分钟长音频、训练链 dataset→train→注册→convert）。
-- 发布物料/文档/仓库归一（`CURRENT_STATE.md`、`09_发布/README.md`、`_接管审计/04–12`）。
-- 本轮已修复：Gateway mix.master 注册丢失、launcher dev-mode 构建（白屏）、构建不可复现、插件 tgz 硬编码、launcher UA 硬编码。
+- 发布物料/文档/仓库归一（`CURRENT_STATE.md`、`09_发布/README.md`、`_接管审计/04–14`）。
+- 已修复（v1.0.0 之前/期间）：Gateway mix.master 注册丢失、launcher dev-mode 构建（白屏）、构建不可复现、插件 tgz 硬编码、launcher UA 硬编码。
+
+---
+
+## 1.1 2026-10-30 已修复（v1.0.1）
+
+| 问题 | 根因 | 修复 |
+|---|---|---|
+| 安装后磁盘占用异常（全量安装约 35.4GB 冗余） | launcher `download_parts_to` 合并分卷后不删分卷；`install_component_blocking` 解包后不删 zip；无残留清扫 | 分卷合并即删、解包即删、安装循环收尾清扫、启动自愈；新增 `--cleanup-downloads`；v1.0.1 已发布 |
+| 安装目录出现两个卸载器 | NSIS `WriteUninstaller AMS-Studio-Uninstall.exe` + `CopyFiles uninstall.exe`（launcher 只认 uninstall.exe） | setup 只写 `uninstall.exe`；注册表 UninstallString 指向它；升级自动删旧 `AMS-Studio-Uninstall.exe` |
+
+证据：`_接管审计/14_下载缓存与安装器重复问题_20261030.md`；当前 v1.0.0 安装已手动回收 34.58GB（59.31→24.73GB）并删除重复卸载器。
 
 ---
 
