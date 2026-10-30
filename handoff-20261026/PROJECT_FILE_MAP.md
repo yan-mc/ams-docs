@@ -111,6 +111,7 @@ F:/Deepseek_harness/AI音乐处理/08_项目代码
 |---|---|
 | packages/plugin-core | Host 插件：/ams/api、session、通用 music_* 工具、Gateway bridge |
 | packages/plugin-ui | Client 插件：AMS 页面、**14 页签**、任务/音频 UI |
+| （独立）ams-agent-music/client | @ams/agent-music-ui：内核运行时换标（嘉音Studio 标题/logo/文字） |
 | packages/music-bundle | profile bundle：插入 plugin-core + plugin-ui |
 | packages/agent-music 或独立目录 | Agent 插件独立仓库，不属于 music-bundle |
 
@@ -158,7 +159,8 @@ F:/Deepseek_harness/AI音乐处理/08_项目代码
 | 当前/H4_1.0.0-rc.2_feed2051/ | H4 候选物料（rc.2） |
 | 当前/H5_1.0.0_feed2052/ | v1.0.0 发布物料（previous stable）：feed 2052、setup 1.0.0、gateway/plugin 1.0.0、manifest、SHA、release-notes |
 | 当前/H5.1_1.0.1_feed2053/ | v1.0.1 补丁物料（previous stable）：feed 2053、setup 1.0.1、manifest、SHA、release-notes |
-| 当前/H5.2_1.0.2_feed2054/ | **当前 latest 发布物料（v1.0.2）**：feed 2054、setup 1.0.2、manifest、SHA、release-notes（gateway/plugin 复用 v1.0.0 资产） |
+| 当前/H5.2_1.0.2_feed2054/ | v1.0.2 补丁物料（previous stable） |
+| 当前/V1.1_1.1.0_feed2055/ | **当前 latest 发布物料（嘉音Studio v1.1.0）**：feed 2055（14 组件，含 Agent 插件）、setup 1.1.0、manifest、SHA、release-notes |
 | 历史/ | 旧快照/旧 feed/旧上传脚本（STALE/LEGACY 说明），只读不改 |
 
 - 验证用 `local-mirror` feed 已随 F 盘测试环境清理而删除（重建方法见 `_接管审计/ops/make_local_mirror_feed.py`，需重新准备本地 runtime/资产副本）。

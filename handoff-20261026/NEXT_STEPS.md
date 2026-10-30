@@ -2,7 +2,7 @@
 
 更新：2026-10-30 23:50（Asia/Shanghai）  
 状态基准：[`CURRENT_STATE.md`](CURRENT_STATE.md)（版本/feed/哈希/发布状态以它为准）  
-适用范围：**v1.0.2（latest）之后仍未完成的工作**。
+适用范围：**v1.1.0（嘉音Studio）之后仍未完成的工作**。
 
 ---
 
@@ -27,6 +27,16 @@
 
 ---
 
+## 1.2 2026-10-31 已完成（v1.1.0）
+
+| 项 | 结果 |
+|---|---|
+| Agent 插件修复 + 一键安装 | 日志/ASR 路径自愈、engines 对齐；feed 新增 plugin.ams.agent.music 0.2.1；安装器按钮同时装音乐+Agent；component_status 显示“已安装到内核” |
+| 内核换标 | @ams/agent-music-ui 运行时替换标题/logo/deepseek/HARNESS/探索未至之境/favicon；未改内核源码；CDP 截图验证 |
+| 启动器改版 | 更名嘉音Studio、圆形 logo/图标、窗口/安装器标题、NSIS UTF-8；新增「Agent 插件功能」「软件功能总览」两个详细说明面板 |
+
+> 插件无法改 Kernel exe 的任务栏图标（需重编内核），仅能改页面内视觉与窗口标题。
+
 ## 1. 未完成事项（按优先级）
 
 ### P0 — 影响"普通用户能顺利安装/使用"
@@ -35,7 +45,7 @@
 |---|---|---|---|---|
 | P0-1 | **GitHub release-assets 大文件下载不稳** | kernel 388MB 单连接两次中断（84MB / 251MB）；launcher 下载器无 resume/retry | ① kernel/runtime 增加 HuggingFace 镜像并在 feed 增加 `mirrors`；② launcher 下载器实现分片+断点续传；③ 提供离线安装包 | 全新网络/干净目录从 feed 完整安装并启动 Kernel+Gateway，中途可断点续传 |
 | P0-2 | **安装包/launcher 未 Authenticode 签名** | setup/launcher 均 NotSigned；SmartScreen 会拦截 | 购买/申请代码签名证书；setup 与 launcher 签名；发布流程加入验签 | Windows 干净机器双击安装无 SmartScreen 阻断（或明确发布说明指引） |
-| P0-3 | **agent-music 不能"下载即用"** | 见 §2 专项 | 修硬编码/路径 + 提供安装方式（launcher 一键或 feed 组件） | 普通用户按文档 5 分钟内装上 20 tools+skill；ASR 有明确可选依赖说明 |
+| ~~P0-3~~ | **agent-music 不能"下载即用"** → **v1.1.0 已修** | 已修日志/ASR 路径、加入 feed（feed 2055 共 14 组件）、启动器一键安装、组件状态显示 | 剩余：ASR Vosk 依赖/中文模型仍不入 feed（可选自备）；20 tools 自动化回归（并入 P1-6） | — |
 | P0-4 | **用户从旧数据迁移的路径未文档化** | 真实数据仍只在 `F:/_trash/ams-clean-20261026_1445`（voices/datasets/projects/tts_voices/models） | 写"数据恢复/导入"说明：把 voices/tts_voices/datasets/projects/models 复制回新安装 `data/` 并校验 | 用户按文档可恢复曼波/闲云/工程/vosk 模型 |
 
 ### P1 — 发布链/运维可信度
