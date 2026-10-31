@@ -68,6 +68,8 @@
 
 v1.1.0 已改为 previous stable（名称/正文更新，资产保留）。
 
+**用户安装同步升级（2026-10-31 15:50）**：`F:\AMS-Studio` 已覆盖安装 v1.1.1；Agent 组件从 GitHub v0.2.2 资产下载并解压到 `data/components/plugin.ams.agent.music`，`--install-plugins` 成功后 profile 依赖全部指向组件托管 tgz；Kernel 重启后日志 `plugin_version 0.2.2`、`tools-registered count=20`，组件状态「音乐插件/Agent 插件 已安装到内核」，桌面快捷方式目标正确。
+
 ## 5. 已知限制（未变）
 
 - **Kernel exe/任务栏图标无法由插件修改**（用户已确认不再处理）；页面内 logo/标题/壁纸可改。

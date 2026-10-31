@@ -17,7 +17,7 @@
 | H5 状态 | **已发布**（见 `_接管审计/12_H5_发布报告.md`） |
 | H5.3 / v1.1 状态 | **已发布**：v1.1.0（品牌改版+Agent 一键安装+内核换标，见 `_接管审计/16`）；**v1.1.1 latest**（桌面/开始菜单快捷方式、图标、壁纸、音乐制作模式，见 `_接管审计/17`） |
 | 版本矩阵 | launcher/installer = **1.1.1（嘉音Studio）**；gateway/plugin = **1.0.0**；kernel = **0.2.1-rc.3**；agent-music = **0.2.2**；runtimes/tools = 0.1.0 |
-| 当前验证环境 | **无长期测试环境**（本轮临时干净环境 `F:/_jy-test/app3` 验证后清理）；用户本机 `F:/AMS-Studio` 为 v1.1.0 launcher（已写入桌面/开始菜单快捷方式；关闭启动器后运行 v1.1.1 setup 即升级） |
+| 当前验证环境 | **无长期测试环境**（本轮临时干净环境 `F:/_jy-test/app3` 验证后清理）；用户本机 `F:/AMS-Studio` 已升级为 **v1.1.1**，音乐/Agent 插件均为组件托管路径（2026-10-31 15:50 实测） |
 | 全新安装包 | GitHub release `v1.1.1`，或本地 `09_发布/当前/V1.1_1.1.1_feed2056/AMS-Studio-Setup-1.1.1.exe`（3,439,487 B / `0BBF5C86…D924`） |
 | 唯一真实数据副本 | `F:/_trash/ams-clean-20261026_1445/AMS-Studio/data`（4.39GB / 曼波/闲云/tts 音源/数据集/工程/vosk 模型） |
 | 生产签名私钥 | `ams-release/examples/keys/private.pem`（仓库内原件；仓库外备份 `F:/AMS-keys-backup-20261026/`） |
@@ -93,7 +93,7 @@
 | 伞仓（不可作交付基线） | `AMS-Studio/`（submodule 仍 pin 在 0.2.0 时代，未更新） |
 | 签名密钥备份（仓库外） | `F:/AMS-keys-backup-20261026/`（private.pem sha `6A596F49…8E6E`） |
 | 测试环境 | **无长期环境**（本轮 `F:/_jy-test/app3` 干净安装验证后清理） |
-| 用户当前安装 | `F:/AMS-Studio`：launcher v1.1.0 + Agent 0.2.2（dev 安装）+ 桌面/开始菜单快捷方式；关闭启动器后运行 `AMS-Studio-Setup-1.1.1.exe` 即升级 |
+| 用户当前安装 | `F:/AMS-Studio`：**launcher v1.1.1 + 组件托管插件**（音乐 1.0.0 / Agent 0.2.2，profile 指向 `data/components/...tgz`）；桌面快捷方式指向 `F:\AMS-Studio\ams-launcher.exe`；Kernel 已重启并加载 0.2.2（20 tools + 壁纸 + 音乐制作模式） |
 | 真实数据（唯一副本） | `F:/_trash/ams-clean-20261026_1445/AMS-Studio/data/`（4.39GB，勿删） |
 
 ---
