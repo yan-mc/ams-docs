@@ -1,6 +1,6 @@
 # AMS Studio 当前状态（唯一事实来源）
 
-更新：2026-10-26 17:10（Asia/Shanghai）  
+更新：2026-10-31 15:45（Asia/Shanghai）  
 维护：接手负责人（Lead）  
 规则：**版本号、feed、哈希、发布状态以本文为准**；其他文档里与之冲突的数字一律视为历史快照（`11_验收与发布记录/` 等已加横幅）。本文只写已核实事实，每条都可用文件哈希或 GitHub release digest 复现。
 
@@ -10,37 +10,37 @@
 
 | 项 | 值 |
 |---|---|
-| **稳定版 / GitHub latest** | **v1.1.0「嘉音Studio」，feed 2055**（2026-10-31 01:10 发布，prerelease=false；品牌改版 + Agent 插件一键安装） |
-| Previous stable（回滚源） | v1.0.2（feed 2054）、v1.0.1（feed 2053）、v1.0.0（feed 2052）、v0.2.1（feed 2049） |
+| **稳定版 / GitHub latest** | **v1.1.1「嘉音Studio」，feed 2056**（2026-10-31 15:35 发布，prerelease=false；桌面快捷方式 + 图标 + 壁纸 + 音乐制作模式） |
+| Previous stable（回滚源） | v1.1.0（feed 2055）、v1.0.2（feed 2054）、v1.0.1（feed 2053）、v1.0.0（feed 2052）、v0.2.1（feed 2049） |
 | Superseded（历史） | v1.0.0-rc.1（feed 2050）、v1.0.0-rc.2（feed 2051）、v0.2.0（archived） |
 | H4 状态 | **PASS / SIGNED**（2026-10-26 17:05，见 `_接管审计/11_H4_签字.md`） |
 | H5 状态 | **已发布**（见 `_接管审计/12_H5_发布报告.md`） |
-| H5.3 / v1.1 状态 | **已发布**：v1.1.0「嘉音Studio」（品牌改版 + Agent 插件 0.2.1 一键安装 + 内核换标 client，见 `_接管审计/16`） |
-| 版本矩阵 | launcher/installer = **1.1.0（嘉音Studio）**；gateway/plugin = **1.0.0**；kernel = **0.2.1-rc.3**；agent-music = **0.2.1**；runtimes/tools = 0.1.0 |
-| 当前验证环境 | **无测试环境**；用户本机 `F:/AMS-Studio` 为 v1.0.1 安装（插件已装到内核，v1.0.2 只修显示；覆盖安装即升级） |
-| 全新安装包 | GitHub release `v1.1.0`，或本地 `09_发布/当前/V1.1_1.1.0_feed2055/AMS-Studio-Setup-1.1.0.exe`（3,438,229 B / `1DCE2F79…E0BA`） |
+| H5.3 / v1.1 状态 | **已发布**：v1.1.0（品牌改版+Agent 一键安装+内核换标，见 `_接管审计/16`）；**v1.1.1 latest**（桌面/开始菜单快捷方式、图标、壁纸、音乐制作模式，见 `_接管审计/17`） |
+| 版本矩阵 | launcher/installer = **1.1.1（嘉音Studio）**；gateway/plugin = **1.0.0**；kernel = **0.2.1-rc.3**；agent-music = **0.2.2**；runtimes/tools = 0.1.0 |
+| 当前验证环境 | **无长期测试环境**（本轮临时干净环境 `F:/_jy-test/app3` 验证后清理）；用户本机 `F:/AMS-Studio` 为 v1.1.0 launcher（已写入桌面/开始菜单快捷方式；关闭启动器后运行 v1.1.1 setup 即升级） |
+| 全新安装包 | GitHub release `v1.1.1`，或本地 `09_发布/当前/V1.1_1.1.1_feed2056/AMS-Studio-Setup-1.1.1.exe`（3,439,487 B / `0BBF5C86…D924`） |
 | 唯一真实数据副本 | `F:/_trash/ams-clean-20261026_1445/AMS-Studio/data`（4.39GB / 曼波/闲云/tts 音源/数据集/工程/vosk 模型） |
 | 生产签名私钥 | `ams-release/examples/keys/private.pem`（仓库内原件；仓库外备份 `F:/AMS-keys-backup-20261026/`） |
-| 源码基线 | 8 仓库 main、clean；launcher **fe3c190** / agent-music **0bd5641** / plugins 0e211c8 / services dc8de91 / release 6c3324c |
+| 源码基线 | 8 仓库 main、clean；launcher **d92102c** / agent-music **fa655f8** / plugins 0e211c8 / services dc8de91 / release 6c3324c |
 
 ---
 
 ## 1. 版本矩阵
 
-| 组件 | v1.0.0（previous） | v1.0.1（previous） | v1.0.2（previous） | **v1.1.0（latest，嘉音Studio）** |
-|---|---|---|---|---|
-| launcher / installer | 1.0.0 | 1.0.1 | 1.0.2 | **1.1.0** |
-| kernel（DSH fork） | 0.2.1-rc.3 | 0.2.1-rc.3 | 0.2.1-rc.3 | **0.2.1-rc.3**（独立版本线） |
-| gateway | 1.0.0 | 1.0.0 | 1.0.0 | **1.0.0**（未变） |
-| plugin bundle | 1.0.0 | 1.0.0 | 1.0.0 | **1.0.0**（未变） |
-| **agent-music（独立，now in feed）** | — | — | — | **0.2.1**（20 tools + Skill + 内核换标 client） |
-| runtime.rvc / pymss / tts | 0.1.0 | 0.1.0 | 0.1.0 | 0.1.0 |
-| runtime.tts-train | 0.1.0 | 0.1.0 | 0.1.0 | 0.1.0 |
-| tool.msvc / tool.vcrun / service.vc | 0.1.0 | 0.1.0 | 0.1.0 | 0.1.0 |
-| catalog.models / voicepack.manbo | 2026.10.19 | 同 | 同 | 同 |
-| feed sequence | 2052 | 2053 | 2054 | **2055** |
-| feed sha256 | `0DCF25E7…6EF3` | `78601EB6…178D` | `1E251742…3264` | **`43AD98634E22A773415CEEC66D770A4219D41C2272C35EDA7E974A0A35A382D1`** |
-| feed 组件数 | 13 | 13 | 13 | **14** |
+| 组件 | v1.0.2（previous） | v1.1.0（previous） | **v1.1.1（latest，嘉音Studio）** |
+|---|---|---|---|
+| launcher / installer | 1.0.2 | 1.1.0 | **1.1.1** |
+| kernel（DSH fork） | 0.2.1-rc.3 | 0.2.1-rc.3 | **0.2.1-rc.3**（独立版本线） |
+| gateway | 1.0.0 | 1.0.0 | **1.0.0**（未变） |
+| plugin bundle | 1.0.0 | 1.0.0 | **1.0.0**（未变） |
+| **agent-music（独立，在 feed 中）** | — | 0.2.1（20 tools + Skill + 换标 client） | **0.2.2**（+ 壁纸 + 音乐制作 preset / 自动 data 工作目录） |
+| runtime.rvc / pymss / tts | 0.1.0 | 0.1.0 | 0.1.0 |
+| runtime.tts-train | 0.1.0 | 0.1.0 | 0.1.0 |
+| tool.msvc / tool.vcrun / service.vc | 0.1.0 | 0.1.0 | 0.1.0 |
+| catalog.models / voicepack.manbo | 2026.10.19 | 同 | 同 |
+| feed sequence | 2054 | 2055 | **2056** |
+| feed sha256 | `1E251742…3264` | `43AD9863…82D1` | **`718520057861DD3A9C76E7C419FDF36F2700960CDF8E28DC19DF633C4737E255`** |
+| feed 组件数 | 13 | 14 | **14**（agent_music → 0.2.2） |
 
 ---
 
@@ -48,7 +48,8 @@
 
 | tag | release id | 名称 | latest | prerelease | feed | 资产数 |
 |---|---|---:|---|---|---|---:|
-| **v1.1.0** | 429294171 | 嘉音Studio v1.1.0 (latest) — feed 2055 | **true** | false | 2055 | 5 |
+| **v1.1.1** | 429789886 | 嘉音Studio v1.1.1 (latest) — feed 2056 | **true** | false | 2056 | 5 |
+| v1.1.0 | 429294171 | 嘉音Studio v1.1.0 (previous stable) — feed 2055 | false | false | 2055 | 5 |
 | v1.0.2 | 429214140 | 嘉音Studio v1.0.2 (previous stable) — feed 2054 | false | false | 2054 | 5 |
 | v1.0.1 | 429165374 | AMS Studio v1.0.1 (previous stable) — feed 2053 | false | false | 2053 | 5 |
 | v1.0.0 | 424030311 | AMS Studio v1.0.0 (previous stable) — feed 2052 | false | false | 2052 | 7 |
@@ -57,31 +58,25 @@
 | v1.0.0-rc.1 | 423803654 | AMS Studio v1.0.0-rc.1 (superseded) — feed 2050 | false | true | 2050 | 6 |
 | v0.2.0 | 418450183 | AMS Studio v0.2.0 (archived — superseded by v0.2.1) | false | false | 2000 时代 | 6 |
 
-### v1.1.0（latest）资产（5）
+### v1.1.1（latest）资产（5）
 
 | 资产 | 字节 | SHA256 |
 |---|---:|---|
-| ams-components.json（feed 2055，14 组件） | 10,326 | `43AD9863…82D1` |
-| AMS-Studio-Setup-1.1.0.exe | 3,438,229 | `1DCE2F79…E0BA` |
-| RELEASE_MANIFEST.json | 739 | `10FC1310…89CE` |
-| SHA256SUMS.txt | 270 | `A41EB718…AE9B` |
-| release-notes.md | 1,022 | `8C838111…52A0` |
+| ams-components.json（feed 2056，14 组件） | 10,326 | `71852005…E255` |
+| AMS-Studio-Setup-1.1.1.exe | 3,439,487 | `0BBF5C86…D924` |
+| RELEASE_MANIFEST.json | 767 | `DAD0DAA4…65F1` |
+| SHA256SUMS.txt | 270 | `C06C9D01…31BD` |
+| release-notes.md | 304 | `77083A27…8EC8` |
 
-- v1.1.0 = 品牌改版（嘉音Studio、圆形 logo、窗口/安装器名称、说明面板）+ Agent 插件 0.2.1 一键安装 + 内核换标 client；gateway/plugin 仍 1.0.0（复用 v1.0.0 资产），kernel 复用 v0.2.1 资产，runtimes 走 HF，agent-music 走独立仓库 release。
-- 所有旧 release 资产保留（零删除）。
+- v1.1.1 = 安装时创建桌面/开始菜单快捷方式、安装器/窗口/任务栏图标为新圆形 logo、Agent 插件 0.2.2（Kernel 壁纸 + 音乐制作模式 + 自动 data 工作目录）；其余组件沿用 v1.0.0/v0.2.1 资产。
 
 ### 独立插件仓库 yan-mc/ams-agent-music
 
 | tag | 资产 | 字节 | SHA256 |
 |---|---|---:|---|
-| **v0.2.1** | ams-agent-music-0.2.1.zip（Host 20 tools + Skill + @ams/agent-music-ui 换标 client + tgz 包） | 131,221 | `36B876F7…0AAB` |
+| **v0.2.2** | ams-agent-music-0.2.2.zip（Host 20 tools + Skill + 壁纸/换标 client + mode 包 + tgz） | 657,100 | `661A65CD…545AC` |
+| v0.2.1 | ams-agent-music-0.2.1.zip（历史） | 131,221 | `36B876F7…0AAB` |
 | v0.2.0 | ams-agent-music-0.2.0.zip（历史） | 21,813 | `6117C69E…D14A` |
-
-### 独立插件仓库 yan-mc/ams-agent-music
-
-| tag | 资产 | 字节 | SHA256 |
-|---|---|---:|---|
-| v0.2.0 | ams-agent-music-0.2.0.zip | 21,813 | `6117C69E…D14A` |
 
 ---
 
@@ -89,16 +84,16 @@
 
 | 内容 | 位置 |
 |---|---|
-| **当前有效发布物料** | `09_发布/当前/`：`H2_0.2.1_feed2049/`、`H3_1.0.0-rc.1_feed2050/`、`H4_1.0.0-rc.2_feed2051/`、`H5_1.0.0_feed2052/`、`H5.1_1.0.1_feed2053/`、`H5.2_1.0.2_feed2054/`、**`V1.1_1.1.0_feed2055/`**（各含 feed/setup/组件/manifest/SHA/unsigned/notes） |
+| **当前有效发布物料** | `09_发布/当前/`：`H2_0.2.1_feed2049/`、`H3_1.0.0-rc.1_feed2050/`、`H4_1.0.0-rc.2_feed2051/`、`H5_1.0.0_feed2052/`、`H5.1_1.0.1_feed2053/`、`H5.2_1.0.2_feed2054/`、`V1.1_1.1.0_feed2055/`、**`V1.1_1.1.1_feed2056/`**（各含 feed/setup/组件/manifest/SHA/unsigned/notes） |
 | 历史/旧快照/旧脚本 | `09_发布/历史/`（含 STALE/LEGACY 说明） |
 | 发布 SOP + 版本矩阵 + 资产映射 | `09_发布/README.md` + `SHA256SUMS-当前.txt` |
 | 交接设计/结构/后续计划 | `PROJECT_DESIGN.md`、`PROJECT_FILE_MAP.md`、**`NEXT_STEPS.md`** |
-| 接管审计/验收/签字/清理 | `_接管审计/00 接管方案`、`01-03 审计`、`04 发布整理`、`05 环境恢复`、`06 构建复现`、`07 GitHub 执行记录`、`08 文档迁移`、`09 H3 验收`、`10 H4 验收`、`11 H4 签字`、`12 H5 发布`、`13 F 盘清理与验证环境说明`、`14 下载缓存与安装器重复问题`、`15 插件状态判定与 agent-music 现状`、**`16 嘉音Studio v1.1 改版与 agent 插件`** |
+| 接管审计/验收/签字/清理 | `_接管审计/00 接管方案`、`01-03 审计`、`04 发布整理`、`05 环境恢复`、`06 构建复现`、`07 GitHub 执行记录`、`08 文档迁移`、`09 H3 验收`、`10 H4 验收`、`11 H4 签字`、`12 H5 发布`、`13 F 盘清理与验证环境说明`、`14 下载缓存与安装器重复问题`、`15 插件状态判定与 agent-music 现状`、`16 嘉音Studio v1.1 改版与 agent 插件`、**`17 嘉音Studio v1.1.1 壁纸与音乐制作模式`** |
 | 源码 | `08_项目代码/`（8 仓库，main） |
 | 伞仓（不可作交付基线） | `AMS-Studio/`（submodule 仍 pin 在 0.2.0 时代，未更新） |
 | 签名密钥备份（仓库外） | `F:/AMS-keys-backup-20261026/`（private.pem sha `6A596F49…8E6E`） |
-| 测试环境 | **无**（`F:/AMS-H4-H3` 等已删除；临时 `F:/_ams-fix-test`、`F:/_ams-plugin-test` 验证后删除） |
-| 用户当前安装 | `F:/AMS-Studio` v1.0.1（音乐插件已安装到内核；v1.0.2 只修显示，覆盖安装即升级） |
+| 测试环境 | **无长期环境**（本轮 `F:/_jy-test/app3` 干净安装验证后清理） |
+| 用户当前安装 | `F:/AMS-Studio`：launcher v1.1.0 + Agent 0.2.2（dev 安装）+ 桌面/开始菜单快捷方式；关闭启动器后运行 `AMS-Studio-Setup-1.1.1.exe` 即升级 |
 | 真实数据（唯一副本） | `F:/_trash/ams-clean-20261026_1445/AMS-Studio/data/`（4.39GB，勿删） |
 
 ---
@@ -115,7 +110,8 @@
 | H5 v1.0.0 发布 | **已发布**（v1.0.0 → previous stable） | `_接管审计/12_H5_发布报告.md` |
 | H5.1 v1.0.1 补丁发布 | **已发布**（previous stable） | `_接管审计/14_下载缓存与安装器重复问题_20261030.md` |
 | H5.2 v1.0.2 补丁发布 | **已发布** | `_接管审计/15_插件状态判定与agent-music现状_20261030.md` |
-| v1.1.0 嘉音Studio 改版 | **已发布，latest=v1.1.0** | `_接管审计/16_嘉音Studio_v1.1改版与agent插件_20261031.md` |
+| v1.1.0 嘉音Studio 改版 | **已发布**（previous stable=v1.1.0） | `_接管审计/16_嘉音Studio_v1.1改版与agent插件_20261031.md` |
+| v1.1.1 安装体验 + 壁纸 + 音乐制作模式 | **已发布，latest=v1.1.1** | `_接管审计/17_嘉音Studio_v1.1.1_壁纸与音乐制作模式_20261031.md` |
 
 ---
 
@@ -152,7 +148,9 @@
 13. ~~**agent-music 未完成**~~：v0.2.1 已修复日志/ASR 路径、进入 feed、启动器一键安装，并新增内核换标 client；详见 `_接管审计/16`。剩余：ASR 模型/Vosk 依赖仍不在 feed（可选自备），20 tools 自动化回归待做（P1-6）。
 
 14. ~~**品牌/界面不一致**~~：启动器名/图标/内核页面仍为旧 AMS/DeepSeek 品牌 → **v1.1.0 已改**（启动器与安装器=嘉音Studio + 圆形 logo；内核通过 @ams/agent-music-ui 运行时替换标题/logo/文字/favicon，未改内核源码）。
-15. **Kernel 可执行文件图标（任务栏/exe）无法由插件修改**：属于 AMS Kernel.exe 资源，需要重编内核；插件只改页面内视觉与窗口标题。
+15. **Kernel 可执行文件图标（任务栏/exe）无法由插件修改**：属于 AMS Kernel.exe 资源，需要重编内核；插件只改页面内视觉与窗口标题。用户已确认内核任务栏图标不再处理。
+16. ~~**启动器图标/桌面快捷方式**~~：v1.1.1 已修（新 logo 图标；安装时创建桌面/开始菜单快捷方式，卸载清理）。
+17. ~~**壁纸/模式缺失**~~：v1.1.1（agent 0.2.2）已加 Kernel 壁纸与「音乐制作」模式（自动 data 工作目录）。
 
 ---
 

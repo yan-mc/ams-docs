@@ -7,20 +7,20 @@
 
 ---
 
-## 当前状态（2026-10-26 17:10）
+## 当前状态（2026-10-31 15:45）
 
 | 项 | 状态 |
 |---|---|
-| 稳定版（GitHub latest） | **v1.1.0「嘉音Studio」**，feed **2055**，setup `1DCE2F79…E0BA`（品牌改版 + Agent 一键安装） |
-| Previous stable（回滚源） | v1.0.2（feed 2054）、v1.0.1（feed 2053）、v1.0.0（feed 2052）、v0.2.1（feed 2049） |
+| 稳定版（GitHub latest） | **v1.1.1「嘉音Studio」**，feed **2056**，setup `0BBF5C86…D924`（快捷方式/图标 + 壁纸 + 音乐制作模式） |
+| Previous stable（回滚源） | v1.1.0（feed 2055）、v1.0.2（feed 2054）、v1.0.1（feed 2053）、v1.0.0（feed 2052）、v0.2.1（feed 2049） |
 | Superseded | v1.0.0-rc.1（feed 2050）、v1.0.0-rc.2（feed 2051）、v0.2.0（archived） |
 | H4 验收 | **PASS / SIGNED**（2026-10-26 17:05） |
-| H5–v1.1 发布 | **v1.0.0 → v1.0.1 → v1.0.2 → v1.1.0（latest，嘉音Studio）**（`_接管审计/12`、`14`、`15`、`16`） |
-| 当前验证环境 | **无（已清理）**；等待用户全新安装 v1.0.0 |
-| 全新安装包 | GitHub release `v1.1.0`，或本地 `09_发布/当前/V1.1_1.1.0_feed2055/AMS-Studio-Setup-1.1.0.exe` |
-| 用户当前安装 | `F:/AMS-Studio` v1.0.1（音乐插件已装到内核；v1.0.2 只修显示，覆盖安装即升级） |
+| H5–v1.1 发布 | **v1.0.0 → v1.0.1 → v1.0.2 → v1.1.0 → v1.1.1（latest，嘉音Studio）**（`_接管审计/12`、`14`、`15`、`16`、`17`） |
+| 当前验证环境 | **无长期环境**（本轮 app3 干净安装验证后清理） |
+| 全新安装包 | GitHub release `v1.1.1`，或本地 `09_发布/当前/V1.1_1.1.1_feed2056/AMS-Studio-Setup-1.1.1.exe` |
+| 用户当前安装 | `F:/AMS-Studio`（launcher v1.1.0 + Agent 0.2.2 + 桌面/开始菜单快捷方式；关闭启动器后运行 v1.1.1 setup 即升级） |
 | 真实数据唯一副本 | `F:/_trash/ams-clean-20261026_1445/AMS-Studio/data`（4.39GB，勿删） |
-| 源码基线 | `08_项目代码/` 下 8 个仓库均 main、clean；launcher/installer **1.1.0（嘉音Studio）**，gateway/plugin 1.0.0，kernel 0.2.1-rc.3，agent-music **0.2.1（已进 feed）** |
+| 源码基线 | `08_项目代码/` 下 8 个仓库均 main、clean；launcher/installer **1.1.1（嘉音Studio）**，gateway/plugin 1.0.0，kernel 0.2.1-rc.3，agent-music **0.2.2（壁纸 + 音乐制作模式，已进 feed）** |
 
 阶段门禁速览：H0 PASS → H1 PASS → H2 PASS → H3 PASS（UI 14 页签 + GPU E2E）→ **H4 SIGNED** → **H5 v1.0.0 发布** → **H5.1 v1.0.1** → **H5.2 v1.0.2（latest）**。后续未完成事项见 [`NEXT_STEPS.md`](NEXT_STEPS.md)。
 
@@ -49,7 +49,7 @@
 | [`_工具/`](_工具/) | 本机构建/签名辅助工具（Rust toolchain 等） | — |
 | [`_归档_20261025/`](_归档_20261025/) | 阶段日志、测试备份、旧阶段归档 | — |
 | [`AMS-Studio/`](AMS-Studio/) | 顶层伞仓（submodule 仍 pin 在 0.2.0 时代，**不可作交付基线**） | — |
-| `F:/AMS-Studio/` | **已卸载删除**（等待用户全新安装 v1.0.0） | — |
+| `F:/AMS-Studio/` | 用户当前安装（launcher 1.1.0 + Agent 0.2.2，桌面快捷方式已创建；升级到 1.1.1 需关闭启动器后运行 setup） | — |
 | `F:/_trash/ams-clean-20261026_1445/` | 隔离区：真实数据唯一副本（4.39GB，勿删） | — |
 | `F:/AMS-keys-backup-20261026/` | 生产签名私钥仓库外备份 | — |
 
